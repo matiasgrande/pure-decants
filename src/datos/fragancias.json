@@ -1,0 +1,126 @@
+{
+  "moneda": "USD",
+  "nota": "BORRADOR PENDIENTE DE REVISIÓN DEL DUEÑO. Confirmado: casa, medidas de 5 y 10 ml, y las fotos (salen de @puredecantsve). Escrito por el sitio y sin confirmar: descripciones, cuandoUsarlo, notas olfativas y disponible. Los precios en 0 se muestran como pendientes en la web; carga el valor real y vuelve a desplegar.",
+  "fragancias": [
+    {
+      "slug": "le-male-le-parfum",
+      "casa": "Jean Paul Gaultier",
+      "nombre": "Le Male Le Parfum",
+      "concentracion": "Eau de Parfum Intense",
+      "familia": "Oriental amaderado",
+      "genero": "masculino",
+      "descripcion": "El torso de siempre, en su versión más densa y dulce. Lavanda al abrir, cardamomo detrás, y una base de vainilla ahumada que se queda pegada a la ropa hasta el día siguiente.",
+      "cuandoUsarlo": "Salidas de noche y clima fresco. Pesa demasiado para el mediodía caribeño.",
+      "notas": {
+        "salida": ["Lavanda", "Cardamomo"],
+        "corazon": ["Iris", "Canela"],
+        "fondo": ["Vainilla", "Haba tonka", "Madera de cedro"]
+      },
+      "imagen": "/perfumes/le-male-le-parfum.webp",
+      "medidas": [
+        { "ml": 5, "precio": 0, "disponible": true },
+        { "ml": 10, "precio": 0, "disponible": true }
+      ]
+    },
+    {
+      "slug": "armani-code-parfum",
+      "casa": "Giorgio Armani",
+      "nombre": "Code Parfum",
+      "concentracion": "Parfum",
+      "familia": "Ámbar especiado",
+      "genero": "masculino",
+      "descripcion": "Cítrico verde arriba, corazón de haba tonka y una base de ámbar cremoso. Es el Code de siempre con más cuerpo y menos dulzor de tabaco.",
+      "cuandoUsarlo": "Oficina, reuniones, cena. El más fácil de llevar de toda la bandeja.",
+      "notas": {
+        "salida": ["Bergamota", "Limón verde"],
+        "corazon": ["Haba tonka", "Nuez moscada"],
+        "fondo": ["Ámbar", "Vetiver"]
+      },
+      "imagen": "/perfumes/armani-code-parfum.webp",
+      "medidas": [
+        { "ml": 5, "precio": 0, "disponible": true },
+        { "ml": 10, "precio": 0, "disponible": true }
+      ]
+    },
+    {
+      "slug": "ysl-y-edp",
+      "casa": "Yves Saint Laurent",
+      "nombre": "Y",
+      "concentracion": "Eau de Parfum",
+      "familia": "Fougère aromático",
+      "genero": "masculino",
+      "descripcion": "Manzana y jengibre de entrada, salvia en el medio, y una base de haba tonka con madera de cedro. Limpio y afilado, sin resultar aburrido.",
+      "cuandoUsarlo": "Diario, todo el año. Aguanta el calor sin volverse pesado.",
+      "notas": {
+        "salida": ["Manzana", "Jengibre", "Bergamota"],
+        "corazon": ["Salvia", "Geranio"],
+        "fondo": ["Haba tonka", "Cedro", "Vetiver"]
+      },
+      "imagen": "/perfumes/ysl-y-edp.webp",
+      "medidas": [
+        { "ml": 5, "precio": 0, "disponible": true },
+        { "ml": 10, "precio": 0, "disponible": true }
+      ]
+    },
+    {
+      "slug": "versace-eros-edp",
+      "casa": "Versace",
+      "nombre": "Eros",
+      "concentracion": "Eau de Parfum",
+      "familia": "Oriental fougère",
+      "genero": "masculino",
+      "descripcion": "Menta y manzana verde arriba, vainilla y haba tonka abajo. Dulce, frío y ruidoso: se siente a metros de distancia.",
+      "cuandoUsarlo": "Noche, fiesta, cuando la idea es que te pregunten qué llevas puesto.",
+      "notas": {
+        "salida": ["Menta", "Manzana verde", "Limón"],
+        "corazon": ["Haba tonka", "Geranio"],
+        "fondo": ["Vainilla", "Vetiver", "Cedro"]
+      },
+      "imagen": "/perfumes/versace-eros-edp.webp",
+      "medidas": [
+        { "ml": 5, "precio": 0, "disponible": true },
+        { "ml": 10, "precio": 0, "disponible": true }
+      ]
+    },
+    {
+      "slug": "versace-dylan-blue",
+      "casa": "Versace",
+      "nombre": "Dylan Blue",
+      "concentracion": "Eau de Toilette",
+      "familia": "Acuático aromático",
+      "genero": "masculino",
+      "descripcion": "Salino y mineral, con toronja arriba y una base de almizcle con incienso. La versión marina de la casa, más contenida que el Eros.",
+      "cuandoUsarlo": "Día, playa, calor. Hecho para el clima de la isla.",
+      "notas": {
+        "salida": ["Toronja", "Bergamota", "Notas acuáticas"],
+        "corazon": ["Violeta", "Papiro", "Pimienta negra"],
+        "fondo": ["Almizcle", "Incienso", "Pachulí"]
+      },
+      "imagen": "/perfumes/versace-dylan-blue.webp",
+      "medidas": [
+        { "ml": 5, "precio": 0, "disponible": true },
+        { "ml": 10, "precio": 0, "disponible": true }
+      ]
+    },
+    {
+      "slug": "acqua-di-gio-profondo",
+      "casa": "Giorgio Armani",
+      "nombre": "Acqua di Giò Profondo",
+      "concentracion": "Eau de Parfum",
+      "familia": "Acuático amaderado",
+      "genero": "masculino",
+      "descripcion": "Agua marina sobre roca mojada: bergamota, romero y una base de pachulí con almizcle mineral. Fresco pero oscuro, no el acuático ligero de siempre.",
+      "cuandoUsarlo": "Diario y de día. El más versátil si solo vas a llevarte uno.",
+      "notas": {
+        "salida": ["Bergamota", "Notas marinas", "Mandarina verde"],
+        "corazon": ["Romero", "Lavanda", "Ciprés"],
+        "fondo": ["Pachulí", "Almizcle mineral"]
+      },
+      "imagen": "/perfumes/acqua-di-gio-profondo.webp",
+      "medidas": [
+        { "ml": 5, "precio": 0, "disponible": true },
+        { "ml": 10, "precio": 0, "disponible": true }
+      ]
+    }
+  ]
+}
