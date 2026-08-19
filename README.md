@@ -11,8 +11,16 @@ npm run build    # export estático en out/
 npm test         # comprueba el mensaje que se le manda al vendedor
 ```
 
-`out/` se publica tal cual en Vercel, Netlify, Cloudflare Pages o cualquier hosting
-de archivos.
+`out/` se publica tal cual en cualquier hosting de archivos.
+
+## Publicado
+
+En vivo: **https://matiasgrande.github.io/pure-decants/**
+
+Cada push a `main` dispara `.github/workflows/deploy.yml`, que corre el test, construye y
+publica en GitHub Pages. Como el sitio vive en un subdirectorio, el flujo pasa
+`NEXT_PUBLIC_BASE_PATH=/pure-decants` y `NEXT_PUBLIC_SITE_URL`; en local ambas quedan
+vacías y el sitio corre en la raíz. Con dominio propio, se cambian esas dos variables.
 
 ## Cargar precios y fragancias
 
