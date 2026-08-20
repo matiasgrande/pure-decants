@@ -59,7 +59,7 @@ export function SelectorFragancia({ fragancia }: { fragancia: Fragancia }) {
                   className="sr-only"
                 />
                 <span>{m.ml} ml</span>
-                <span className="text-[0.7rem] normal-case opacity-80">
+                <span className="normal-case opacity-80">
                   ≈ {atomizaciones(m.ml)} usos
                 </span>
               </label>
