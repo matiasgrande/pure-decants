@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Topografia } from "@/componentes/Topografia";
-import { Vial } from "@/componentes/Vial";
+import { Decant } from "@/componentes/Decant";
 import { rutaPublica } from "@/lib/rutas";
 import type { Fragancia } from "@/lib/catalogo";
 
@@ -12,7 +12,7 @@ function semilla(slug: string): number {
 }
 
 /**
- * La foto del frasco cuando existe; el vial dibujado cuando todavía no.
+ * La foto del perfume cuando existe; el frasco del negocio cuando todavía no.
  * El dueño sube la foto real desde /admin y esta misma casilla la toma.
  */
 export function FotoFragancia({
@@ -38,7 +38,6 @@ export function FotoFragancia({
   }
 
   const s = semilla(fragancia.slug);
-  const lleno = 0.5 + (s % 8) * 0.055;
   const alto = 56 + (s % 5) * 2.5;
   const giro = (s % 9) * 40 - 160;
   const desvio = (s % 4) * 26 - 40;
@@ -50,9 +49,8 @@ export function FotoFragancia({
         opacidad={0.13}
         style={{ right: `${giro}px`, bottom: `${desvio}px` }}
       />
-      <Vial
+      <Decant
         className="relative w-auto transition-transform duration-500 ease-out group-hover:scale-[1.04]"
-        lleno={lleno}
         style={{ height: `${alto}%` }}
       />
     </div>

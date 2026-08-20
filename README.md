@@ -34,7 +34,7 @@ GitHub y desde ahí maneja todo el muestrario:
 - precios y stock de cada medida, desde la fila, sin abrir nada;
 - casa, nombre, concentración, acordes, descripción y «cuándo usarlo»;
 - las medidas mismas: cambiar los mililitros, agregar un tamaño nuevo o quitar uno;
-- la foto del frasco: subir, reemplazar o quitar (sin foto sale el vial dibujado);
+- la foto del frasco: subir, reemplazar o quitar (sin foto sale el frasco de PureDecants);
 - el orden en que aparecen en el muestrario, con las flechas de cada fila;
 - agregar y quitar fragancias.
 
@@ -70,7 +70,7 @@ agotada y bloquea el botón.
 
 Para agregar una fragancia: copia un bloque, cambia el `slug` (va en la URL de su ficha) y
 pon la foto en `public/perfumes/<slug>.webp`. Si todavía no hay foto, deja
-`"imagen": null` y la ficha muestra el vial dibujado.
+`"imagen": null` y la ficha muestra el frasco de PureDecants.
 
 ## Pendientes para el dueño
 
@@ -80,7 +80,7 @@ pon la foto en `public/perfumes/<slug>.webp`. Si todavía no hay foto, deja
 - **Fotos propias.** Veintitrés de las veinticinco tienen foto, pero salen de campañas de
   las marcas y de Pinterest: sirven para arrancar, no son del negocio. Reemplazarlas por
   fotos de sus propios frascos desde el panel es lo que hace la diferencia. `Dark Aoud` y
-  `Woody Oud` no tienen ninguna y muestran el vial dibujado.
+  `Woody Oud` no tienen ninguna y muestran el frasco de PureDecants.
 - **Textos del catálogo.** Casa, nombre, acordes y precios salen de su catálogo y su lista
   de precios. Las descripciones y el «cuándo usarlo» de las seis primeras las escribió el
   sitio: revisarlas o borrarlas desde el panel.

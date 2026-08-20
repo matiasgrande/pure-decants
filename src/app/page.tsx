@@ -1,6 +1,6 @@
 import { Muestrario } from "@/componentes/Muestrario";
 import { Topografia } from "@/componentes/Topografia";
-import { Vial } from "@/componentes/Vial";
+import { Decant } from "@/componentes/Decant";
 import { fragancias } from "@/lib/catalogo";
 
 export default function Inicio() {
@@ -50,7 +50,7 @@ export default function Inicio() {
           <div className="relative border border-oro-hondo/40 bg-tinta-alta p-3">
             <div className="grid grid-cols-2 gap-3">
               <figure className="hueco flex flex-col items-center justify-end gap-5 px-4 pt-10 pb-6">
-                <Vial className="h-40 w-auto sm:h-44" lleno={0.62} />
+                <Decant ml={5} className="h-44 w-auto sm:h-52" prioridad />
                 <figcaption className="text-center">
                   <span className="grabado block text-oro-claro">5 ml</span>
                   <span className="cifras text-sm text-crema-tenue">
@@ -60,7 +60,7 @@ export default function Inicio() {
               </figure>
 
               <figure className="hueco flex flex-col items-center justify-end gap-5 px-4 pt-4 pb-6">
-                <Vial className="h-52 w-auto sm:h-60" lleno={0.78} />
+                <Decant ml={10} className="h-56 w-auto sm:h-66" prioridad />
                 <figcaption className="text-center">
                   <span className="grabado block text-oro-claro">10 ml</span>
                   <span className="cifras text-sm text-crema-tenue">

@@ -4,7 +4,6 @@ import { ProveedorBandeja } from "@/lib/bandeja";
 import { Encabezado } from "@/componentes/Encabezado";
 import { Armazon } from "@/componentes/Armazon";
 import { PieDePagina } from "@/componentes/PieDePagina";
-import { DefsVial } from "@/componentes/Vial";
 import { rutaPublica, SITIO } from "@/lib/rutas";
 import "./globals.css";
 
@@ -59,7 +58,6 @@ export default function RootLayout({
     <html lang="es-VE" className={`${display.variable} ${texto.variable}`}>
       <body className="min-h-dvh antialiased">
         <ProveedorBandeja>
-          <DefsVial />
           <a
             href="#contenido"
             className="etiqueta sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-oro focus:px-4 focus:py-3 focus:text-tinta"

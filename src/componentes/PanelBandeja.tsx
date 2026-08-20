@@ -1,12 +1,14 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useBandeja } from "@/lib/bandeja";
 import { formatearPrecio, moneda } from "@/lib/catalogo";
+import { rutaPublica } from "@/lib/rutas";
 import { armarMensaje, enlaceWhatsApp } from "@/lib/whatsapp";
-import { Vial } from "./Vial";
+import { Decant } from "./Decant";
 
 gsap.registerPlugin(useGSAP);
 
@@ -52,18 +54,20 @@ export function PanelBandeja() {
         if (reduce) return;
 
         const { x, y } = (evento as CustomEvent<{ x: number; y: number }>).detail;
-        const viajero = document.createElement("div");
+        const viajero = document.createElement("img");
+        viajero.src = rutaPublica("/decants/dorado-10ml.webp");
+        viajero.alt = "";
         viajero.className = "pointer-events-none fixed z-50";
         viajero.style.cssText =
-          "width:14px;height:42px;border-radius:2px;background:linear-gradient(180deg,var(--color-oro) 0 22%,rgba(216,205,184,.5) 22%);box-shadow:0 6px 18px -6px rgba(0,0,0,.8)";
+          "width:10px;height:48px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.8))";
         document.body.appendChild(viajero);
 
         gsap
           .timeline({ onComplete: () => viajero.remove() })
-          .set(viajero, { left: x - 7, top: y - 21, opacity: 1, scale: 1 })
+          .set(viajero, { left: x - 5, top: y - 24, opacity: 1, scale: 1 })
           .to(viajero, {
-            left: marca.left + marca.width / 2 - 7,
-            top: marca.top + marca.height / 2 - 21,
+            left: marca.left + marca.width / 2 - 5,
+            top: marca.top + marca.height / 2 - 24,
             scale: 0.55,
             rotate: -14,
             duration: 0.62,
@@ -95,7 +99,7 @@ export function PanelBandeja() {
       >
         <span className="flex items-center gap-3">
           <span data-marca-bandeja className="inline-flex">
-            <Vial className="h-8 w-auto" lleno={vacia ? 0 : 0.72} />
+            <Decant className={vacia ? "h-8 w-auto opacity-45" : "h-8 w-auto"} />
           </span>
           Bandeja
           <span className="cifras text-oro">{totalViales}</span>
@@ -119,7 +123,7 @@ export function PanelBandeja() {
           <header className="flex items-center justify-between border-b border-oro-hondo/35 px-6 py-5 max-lg:pt-6">
             <h2 className="rotulo text-crema">Tu bandeja</h2>
             <span data-marca-bandeja className="hidden lg:inline-flex">
-              <Vial className="h-9 w-auto" lleno={vacia ? 0 : 0.72} />
+              <Decant className={vacia ? "h-9 w-auto opacity-45" : "h-9 w-auto"} />
             </span>
           </header>
 
@@ -139,8 +143,21 @@ export function PanelBandeja() {
                 const medida = vial.fragancia.medidas.find((m) => m.ml === vial.ml);
                 return (
                   <li key={`${vial.slug}-${vial.ml}`} className="flex gap-3 px-6 py-4">
-                    <span className="hueco flex w-9 shrink-0 items-center justify-center py-1">
-                      <Vial className="h-11 w-auto" lleno={0.7} />
+                    <span className="hueco relative aspect-4/5 w-11 shrink-0 self-start overflow-hidden border border-oro-hondo/30">
+                      {vial.fragancia.imagen ? (
+                        <Image
+                          src={rutaPublica(vial.fragancia.imagen)}
+                          alt=""
+                          fill
+                          sizes="44px"
+                          className="object-cover"
+                        />
+                      ) : (
+                        <Decant
+                          ml={vial.ml === 5 ? 5 : 10}
+                          className="absolute inset-0 m-auto h-[78%] w-auto"
+                        />
+                      )}
                     </span>
 
                     <div className="min-w-0 flex-1">

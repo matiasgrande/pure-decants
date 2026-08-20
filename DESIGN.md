@@ -10,7 +10,6 @@ colors:
   gold-deep: "#7A5F2E"
   cream: "#F2ECE0"
   cream-dim: "#A9A196"
-  glass: "#D8CDB8"
   alert: "#D98A5A"
 typography:
   display:
@@ -175,8 +174,10 @@ Cuando una casilla se eleva al hover, sube 2px y su filete pasa de `gold-deep` a
 sombra que la acompaña tiene desplazamiento vertical real y desenfoque suave, nunca un halo
 centrado.
 
-El vidrio del vial se sugiere con un gradiente vertical estrecho y un reflejo de 1px, no con
-`backdrop-filter`.
+El vial no se dibuja: es la foto de producto del propio negocio, recortada sobre transparencia
+y apoyada en ese hueco. Los archivos de 5 y 10 ml salieron del mismo original a la misma escala,
+así que sus dimensiones ya cargan la proporción real —el 5 ml mide el 79% del 10 ml— y darles la
+misma altura en CSS convertiría la comparación en una mentira.
 
 ## Shapes
 
