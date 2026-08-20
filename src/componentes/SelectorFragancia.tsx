@@ -5,7 +5,6 @@ import { useBandeja } from "@/lib/bandeja";
 import {
   atomizaciones,
   formatearPrecio,
-  tienePrecioPendiente,
   type Fragancia,
 } from "@/lib/catalogo";
 
@@ -71,7 +70,7 @@ export function SelectorFragancia({ fragancia }: { fragancia: Fragancia }) {
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-oro-hondo/25 pt-5">
         <p
-          className="cifras text-xl"
+          className="cifras text-2xl"
           style={{
             color:
               medida && medida.precio > 0
@@ -98,18 +97,6 @@ export function SelectorFragancia({ fragancia }: { fragancia: Fragancia }) {
         </button>
       </div>
 
-      {tienePrecioPendiente(fragancia) && (
-        <p
-          className="mt-5 border-t pt-4 text-sm leading-relaxed"
-          style={{
-            borderColor: "var(--color-oro-hondo)",
-            color: "var(--color-aviso)",
-          }}
-        >
-          Este todavía no tiene precio cargado. Lo confirma el vendedor por
-          WhatsApp: puedes ponerlo en la bandeja igual.
-        </p>
-      )}
     </div>
   );
 }

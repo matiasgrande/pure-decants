@@ -117,7 +117,7 @@ export function PanelBandeja() {
           }
         >
           <header className="flex items-center justify-between border-b border-oro-hondo/35 px-6 py-5 max-lg:pt-6">
-            <h2 className="grabado text-crema">Tu bandeja</h2>
+            <h2 className="rotulo text-crema">Tu bandeja</h2>
             <span data-marca-bandeja className="hidden lg:inline-flex">
               <Vial className="h-9 w-auto" lleno={vacia ? 0 : 0.72} />
             </span>
@@ -144,10 +144,10 @@ export function PanelBandeja() {
                     </span>
 
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm text-crema">
+                      <p className="truncate text-base text-crema">
                         {vial.fragancia.nombre}
                       </p>
-                      <p className="cifras text-xs text-crema-tenue">
+                      <p className="cifras text-sm text-crema-tenue">
                         {vial.fragancia.casa} · {vial.ml} ml
                       </p>
 
@@ -161,7 +161,7 @@ export function PanelBandeja() {
                           >
                             −
                           </button>
-                          <span className="cifras px-2 text-sm text-crema">
+                          <span className="cifras px-2 text-base text-crema">
                             {vial.cantidad}
                           </span>
                           <button
@@ -240,7 +240,7 @@ export function PanelBandeja() {
               </a>
             )}
 
-            <p className="mt-3 text-xs leading-relaxed text-crema-tenue">
+            <p className="mt-3 text-sm leading-relaxed text-crema-tenue">
               El envío y la forma de pago se acuerdan en el chat. No se cobra nada
               desde la web.
             </p>

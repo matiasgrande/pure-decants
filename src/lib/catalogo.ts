@@ -29,13 +29,6 @@ export function buscarFragancia(slug: string): Fragancia | undefined {
   return fragancias.find((f) => f.slug === slug);
 }
 
-/** Una fragancia con alguna medida en 0 se pide igual: el precio lo cierra el chat. */
-export function tienePrecioPendiente(fragancia: Fragancia): boolean {
-  return fragancia.medidas.some((m) => m.precio === 0);
-}
-
-export const hayPreciosPendientes = fragancias.some(tienePrecioPendiente);
-
 export function formatearPrecio(precio: number): string {
   if (precio === 0) return "A confirmar";
   return `$${precio.toFixed(2).replace(/\.00$/, "")}`;
@@ -44,11 +37,6 @@ export function formatearPrecio(precio: number): string {
 /** Cuántas atomizaciones rinde una medida, a ~0,1 ml por pulsación. */
 export function atomizaciones(ml: number): number {
   return Math.round((ml / 0.1) / 5) * 5;
-}
-
-/** Bajo la casilla, donde no cabe la lista entera de acordes. */
-export function resumenAcordes(fragancia: Fragancia): string {
-  return fragancia.acordes.slice(0, 3).join(" · ");
 }
 
 /** De "Acqua di Gio" + "Giorgio Armani" sale la dirección de su ficha, sin acentos ni signos. */

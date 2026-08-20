@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BarrasAcordes } from "@/componentes/BarrasAcordes";
 import { FotoFragancia } from "@/componentes/FotoFragancia";
 import { SelectorFragancia } from "@/componentes/SelectorFragancia";
 import { Topografia } from "@/componentes/Topografia";
@@ -101,19 +102,7 @@ export default async function FichaFragancia({
               <p className="mt-3 max-w-[62ch] text-sm text-crema-tenue">
                 Cómo huele, de lo que más se siente a lo que menos.
               </p>
-              <ol className="mt-6 divide-y divide-oro-hondo/25 border-t border-oro-hondo/25">
-                {fragancia.acordes.map((acorde, i) => (
-                  <li
-                    key={`${i}-${acorde}`}
-                    className="grid grid-cols-[2.5rem_1fr] items-baseline gap-4 py-4"
-                  >
-                    <span className="cifras text-sm text-oro">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="text-crema">{acorde}</span>
-                  </li>
-                ))}
-              </ol>
+              <BarrasAcordes acordes={fragancia.acordes} />
             </div>
           </div>
         </div>

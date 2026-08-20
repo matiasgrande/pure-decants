@@ -41,7 +41,8 @@
     background-color: var(--color-tinta);
     color: var(--color-crema);
     font-family: var(--font-texto);
-    font-size: 1rem;
+    /* En móvil el cuerpo sube: a 390 px de ancho, 16 px se leía chico. */
+    font-size: clamp(1rem, 2.9vw, 1.0625rem);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
   }
@@ -60,19 +61,29 @@
 @utility grabado {
   font-family: var(--font-display);
   font-weight: 500;
-  letter-spacing: 0.34em;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
-  font-size: clamp(0.72rem, 1.6vw, 0.85rem);
-  line-height: 1.2;
+  font-size: clamp(0.82rem, 2.2vw, 0.95rem);
+  line-height: 1.25;
+}
+
+/* El grabado a escala de encabezado de sección: "El muestrario", "Tu bandeja". */
+@utility rotulo {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  font-size: clamp(1.05rem, 3.6vw, 1.3rem);
+  line-height: 1.25;
 }
 
 @utility etiqueta {
   font-family: var(--font-texto);
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-size: 0.7rem;
-  line-height: 1.2;
+  font-size: 0.78rem;
+  line-height: 1.25;
 }
 
 @utility cifras {

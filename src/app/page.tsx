@@ -1,7 +1,7 @@
-import { CasillaFragancia } from "@/componentes/CasillaFragancia";
+import { Muestrario } from "@/componentes/Muestrario";
 import { Topografia } from "@/componentes/Topografia";
 import { Vial } from "@/componentes/Vial";
-import { fragancias, hayPreciosPendientes } from "@/lib/catalogo";
+import { fragancias } from "@/lib/catalogo";
 
 export default function Inicio() {
   return (
@@ -53,7 +53,7 @@ export default function Inicio() {
                 <Vial className="h-40 w-auto sm:h-44" lleno={0.62} />
                 <figcaption className="text-center">
                   <span className="grabado block text-oro-claro">5 ml</span>
-                  <span className="cifras text-xs text-crema-tenue">
+                  <span className="cifras text-sm text-crema-tenue">
                     ≈ 50 atomizaciones
                   </span>
                 </figcaption>
@@ -63,7 +63,7 @@ export default function Inicio() {
                 <Vial className="h-52 w-auto sm:h-60" lleno={0.78} />
                 <figcaption className="text-center">
                   <span className="grabado block text-oro-claro">10 ml</span>
-                  <span className="cifras text-xs text-crema-tenue">
+                  <span className="cifras text-sm text-crema-tenue">
                     ≈ 100 atomizaciones
                   </span>
                 </figcaption>
@@ -82,14 +82,14 @@ export default function Inicio() {
         className="border-b border-oro-hondo/35 bg-tinta-hueco"
       >
         <div className="mx-auto max-w-[1240px] px-6 py-16 lg:px-12 lg:py-20">
-          <h2 className="grabado text-oro">Cómo funciona</h2>
+          <h2 className="rotulo text-oro">Cómo funciona</h2>
 
-          <div className="mt-8 grid gap-10 md:grid-cols-3">
+          <div className="mt-10 grid gap-10 md:grid-cols-3">
             <div>
-              <p className="font-display text-2xl text-crema">
+              <p className="font-display text-[clamp(1.5rem,5vw,1.9rem)] leading-tight text-crema">
                 Sale del frasco original.
               </p>
-              <p className="mt-3 text-sm leading-relaxed text-crema-tenue">
+              <p className="mt-4 leading-relaxed text-crema-tenue">
                 No es una imitación ni un &laquo;inspirado en&raquo;. Es el perfume de
                 la casa, trasvasado con un proceso limpio a un atomizador más
                 pequeño.
@@ -97,20 +97,20 @@ export default function Inicio() {
             </div>
 
             <div>
-              <p className="font-display text-2xl text-crema">
+              <p className="font-display text-[clamp(1.5rem,5vw,1.9rem)] leading-tight text-crema">
                 Eliges cuánto quieres.
               </p>
-              <p className="mt-3 text-sm leading-relaxed text-crema-tenue">
+              <p className="mt-4 leading-relaxed text-crema-tenue">
                 5 ml para probar una fragancia sin arriesgar el precio del frasco
                 entero. 10 ml para usarla a diario durante semanas.
               </p>
             </div>
 
             <div>
-              <p className="font-display text-2xl text-crema">
+              <p className="font-display text-[clamp(1.5rem,5vw,1.9rem)] leading-tight text-crema">
                 El pedido llega escrito.
               </p>
-              <p className="mt-3 text-sm leading-relaxed text-crema-tenue">
+              <p className="mt-4 leading-relaxed text-crema-tenue">
                 Al enviar la bandeja, WhatsApp se abre con tu pedido ya redactado.
                 Ahí se confirma el total, el pago y el envío.
               </p>
@@ -121,41 +121,15 @@ export default function Inicio() {
 
       <section id="muestrario" className="scroll-mt-20">
         <div className="mx-auto max-w-[1240px] px-6 py-16 lg:px-12 lg:py-20">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <h2 className="grabado text-oro">El muestrario</h2>
-              <p className="mt-3 max-w-[62ch] text-crema-tenue">
-                Elige la medida en cada casilla y ponla en tu bandeja. Puedes
-                combinar varias fragancias en un mismo pedido.
-              </p>
-            </div>
-            <p className="cifras text-sm text-crema-tenue">
-              {fragancias.length} fragancias disponibles
+          <div>
+            <h2 className="rotulo text-oro">El muestrario</h2>
+            <p className="mt-4 max-w-[62ch] text-crema-tenue">
+              Elige la medida en cada casilla y ponla en tu bandeja. Puedes
+              combinar varias fragancias en un mismo pedido.
             </p>
           </div>
 
-          {hayPreciosPendientes && (
-            <p
-              className="mt-8 border px-4 py-3 text-sm"
-              style={{
-                borderColor: "var(--color-aviso)",
-                color: "var(--color-aviso)",
-              }}
-            >
-              Algunas fragancias todavía no tienen precio cargado. Puedes armar tu
-              bandeja igual: esas se confirman por WhatsApp.
-            </p>
-          )}
-
-          <div className="mt-10 grid grid-cols-1 border-r border-b border-oro-hondo/30 min-[520px]:grid-cols-2 min-[1180px]:grid-cols-3">
-            {fragancias.map((fragancia, i) => (
-              <CasillaFragancia
-                key={fragancia.slug}
-                fragancia={fragancia}
-                prioridad={i < 3}
-              />
-            ))}
-          </div>
+          <Muestrario fragancias={fragancias} />
         </div>
       </section>
     </>

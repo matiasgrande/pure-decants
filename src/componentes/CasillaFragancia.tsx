@@ -4,12 +4,8 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { FotoFragancia } from "@/componentes/FotoFragancia";
 import { useBandeja } from "@/lib/bandeja";
-import {
-  atomizaciones,
-  formatearPrecio,
-  resumenAcordes,
-  type Fragancia,
-} from "@/lib/catalogo";
+import { atomizaciones, formatearPrecio, type Fragancia } from "@/lib/catalogo";
+import { colorDe } from "@/lib/acordes";
 
 export function CasillaFragancia({
   fragancia,
@@ -57,7 +53,7 @@ export function CasillaFragancia({
 
       <div className="flex flex-1 flex-col gap-4 p-5">
         <div>
-          <h3 className="font-display text-2xl leading-tight text-crema">
+          <h3 className="font-display text-[clamp(1.5rem,5vw,1.75rem)] leading-tight text-crema">
             <Link href={`/fragancia/${fragancia.slug}`} className="hover:text-oro-claro">
               {fragancia.nombre}
             </Link>
@@ -65,9 +61,21 @@ export function CasillaFragancia({
           {fragancia.concentracion && (
             <p className="grabado mt-2 text-oro">{fragancia.concentracion}</p>
           )}
-          <p className="mt-2 text-sm text-crema-tenue">
-            {resumenAcordes(fragancia)}
-          </p>
+          <ul className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5">
+            {fragancia.acordes.slice(0, 3).map((acorde) => (
+              <li
+                key={acorde}
+                className="flex items-center gap-2 text-sm text-crema-tenue"
+              >
+                <span
+                  aria-hidden="true"
+                  className="size-2 shrink-0"
+                  style={{ backgroundColor: colorDe(acorde) }}
+                />
+                {acorde}
+              </li>
+            ))}
+          </ul>
         </div>
 
         <fieldset className="mt-auto">
@@ -100,14 +108,14 @@ export function CasillaFragancia({
               );
             })}
           </div>
-          <p className="cifras mt-2 text-xs text-crema-tenue">
+          <p className="cifras mt-3 text-sm text-crema-tenue">
             ≈ {atomizaciones(ml)} atomizaciones
           </p>
         </fieldset>
 
         <div className="flex items-end justify-between gap-3 border-t border-oro-hondo/25 pt-4">
           <p
-            className="cifras text-lg"
+            className="cifras text-xl"
             style={{
               color:
                 medida && medida.precio > 0

@@ -10,7 +10,7 @@ export function PieDePagina() {
       />
 
       <div className="relative mx-auto max-w-[1240px] px-6 py-16 lg:px-12">
-        <p className="font-display text-3xl leading-tight text-crema sm:text-4xl">
+        <p className="font-display text-[clamp(1.9rem,7vw,2.6rem)] leading-[1.05] text-crema">
           Grandes aromas,
           <br />
           <span className="text-oro">pequeñas dosis.</span>
@@ -18,7 +18,7 @@ export function PieDePagina() {
 
         <div className="mt-10 grid gap-8 sm:grid-cols-3">
           <div>
-            <h2 className="etiqueta mb-2 text-crema-tenue">Pedidos</h2>
+            <h2 className="grabado mb-3 text-oro">Pedidos</h2>
             <a
               href={`https://wa.me/${TELEFONO}`}
               target="_blank"
@@ -30,7 +30,7 @@ export function PieDePagina() {
           </div>
 
           <div>
-            <h2 className="etiqueta mb-2 text-crema-tenue">Catálogo al día</h2>
+            <h2 className="grabado mb-3 text-oro">Catálogo al día</h2>
             <a
               href={INSTAGRAM}
               target="_blank"
@@ -42,7 +42,7 @@ export function PieDePagina() {
           </div>
 
           <div>
-            <h2 className="etiqueta mb-2 text-crema-tenue">Dónde estamos</h2>
+            <h2 className="grabado mb-3 text-oro">Dónde estamos</h2>
             <p className="text-crema">
               Isla de Margarita
               <br />
@@ -51,7 +51,7 @@ export function PieDePagina() {
           </div>
         </div>
 
-        <p className="mt-12 text-xs text-crema-tenue">
+        <p className="mt-12 text-sm text-crema-tenue">
           PureDecants reenvasa fragancias originales. Las marcas mencionadas
           pertenecen a sus respectivos titulares y no patrocinan este sitio.
         </p>
