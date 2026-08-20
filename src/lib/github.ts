@@ -128,28 +128,25 @@ export async function guardarCatalogo(
   return nuevoSha;
 }
 
-/** Devuelve el sha del archivo si ya existe, para poder reemplazarlo. */
-async function shaDe(token: string, ruta: string): Promise<string | undefined> {
-  const respuesta = await llamar(
-    `/repos/${REPO}/contents/${ruta}?ref=${RAMA}`,
-    token,
-  );
-  if (respuesta.status === 404) return undefined;
-  if (!respuesta.ok) await fallar(respuesta, "revisar la foto");
-  return (await respuesta.json()).sha as string;
-}
-
-/** Sube la foto de un frasco y devuelve la ruta pública que va en el catálogo. */
+/**
+ * Sube la foto de un frasco y devuelve la ruta pública que va en el catálogo.
+ *
+ * El nombre lleva una marca de tiempo porque GitHub Pages y el navegador cachean
+ * por URL: reusar `khamrah.webp` haría que el dueño suba una foto nueva y siga
+ * viendo la vieja durante horas. Con nombre nuevo, la foto aparece al instante.
+ *
+ * La anterior queda en el repositorio a propósito. Borrarla acá dejaría la web
+ * publicada apuntando a un archivo que ya no existe durante los dos minutos que
+ * tarda el despliegue del catálogo nuevo.
+ */
 export async function subirFoto(
   token: string,
   slug: string,
-  archivo: File,
+  bytes: Uint8Array,
+  extension: string,
 ): Promise<string> {
-  const extension = archivo.name.split(".").pop()?.toLowerCase() ?? "jpg";
-  const nombre = `${slug}.${extension}`;
+  const nombre = `${slug}-${Date.now().toString(36)}.${extension}`;
   const ruta = `${CARPETA_FOTOS}/${nombre}`;
-  const bytes = new Uint8Array(await archivo.arrayBuffer());
-  const sha = await shaDe(token, ruta);
 
   const respuesta = await llamar(`/repos/${REPO}/contents/${ruta}`, token, {
     method: "PUT",
@@ -157,10 +154,18 @@ export async function subirFoto(
       message: `chore: foto de ${slug}`,
       content: aBase64(bytes),
       branch: RAMA,
-      ...(sha ? { sha } : {}),
     }),
   });
   if (!respuesta.ok) await fallar(respuesta, "subir la foto");
 
   return `/perfumes/${nombre}`;
+}
+
+/**
+ * Dirección para ver una foto apenas se sube, sin esperar el despliegue.
+ * `raw.githubusercontent.com` sirve el archivo del repositorio en el acto; la
+ * ruta del sitio publicado tarda los dos minutos que corre el flujo de Actions.
+ */
+export function urlFotoEnRepo(imagen: string): string {
+  return `https://raw.githubusercontent.com/${REPO}/${RAMA}/public${imagen}`;
 }

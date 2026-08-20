@@ -7,6 +7,7 @@ import {
   guardarCatalogo,
   REPO,
   subirFoto,
+  urlFotoEnRepo,
   verificarAcceso,
 } from "@/lib/github";
 import { armarSlug, atomizaciones, type Fragancia } from "@/lib/catalogo";
@@ -21,6 +22,56 @@ const MEDIDAS_NUEVAS = [
   { ml: 5, precio: 0, disponible: true },
   { ml: 10, precio: 0, disponible: true },
 ];
+
+/** Las casillas y las fichas recortan a 4:5, así que la foto se guarda ya recortada. */
+const ANCHO_FOTO = 800;
+const ALTO_FOTO = 1000;
+
+/**
+ * Deja cualquier foto del teléfono en un webp de 800×1000 de unos 60 KB.
+ * Sin esto, una foto de 4 MB entraría tal cual al repositorio y la casilla la
+ * recortaría igual, pero el visitante la pagaría en datos móviles.
+ */
+async function prepararFoto(
+  archivo: File,
+): Promise<{ bytes: Uint8Array; extension: string }> {
+  // Sin `imageOrientation`, una foto vertical del teléfono entra acostada.
+  const bitmap = await createImageBitmap(archivo, {
+    imageOrientation: "from-image",
+  });
+  const escala = Math.max(ANCHO_FOTO / bitmap.width, ALTO_FOTO / bitmap.height);
+  const ancho = bitmap.width * escala;
+  const alto = bitmap.height * escala;
+
+  const lienzo = document.createElement("canvas");
+  lienzo.width = ANCHO_FOTO;
+  lienzo.height = ALTO_FOTO;
+  const pincel = lienzo.getContext("2d");
+  if (!pincel) throw new Error("Este navegador no puede procesar la foto.");
+  pincel.drawImage(
+    bitmap,
+    (ANCHO_FOTO - ancho) / 2,
+    (ALTO_FOTO - alto) / 2,
+    ancho,
+    alto,
+  );
+  bitmap.close();
+
+  // Safari viejo ignora el webp y devuelve un PNG, que pesa diez veces más.
+  // Si eso pasa, se cae a jpeg, que sí sabe comprimir en todos lados.
+  let blob = await new Promise<Blob | null>((r) =>
+    lienzo.toBlob(r, "image/webp", 0.8),
+  );
+  let extension = "webp";
+  if (!blob || blob.type !== "image/webp") {
+    blob = await new Promise<Blob | null>((r) =>
+      lienzo.toBlob(r, "image/jpeg", 0.85),
+    );
+    extension = "jpg";
+  }
+  if (!blob) throw new Error("No se pudo convertir la foto.");
+  return { bytes: new Uint8Array(await blob.arrayBuffer()), extension };
+}
 
 export function EditorCatalogo() {
   const [token, setToken] = useState("");
@@ -159,20 +210,59 @@ export function EditorCatalogo() {
   }
 
   async function ponerFoto(fragancia: Fragancia, archivo: File) {
-    if (archivo.size > 2_000_000) {
-      setError("La foto pesa más de 2 MB. Redúcela antes de subirla.");
+    if (!fragancia.casa.trim() || !fragancia.nombre.trim()) {
+      setError("Ponle casa y nombre antes de subir la foto: el nombre del archivo sale de ahí.");
       return;
     }
-    setAviso(`Subiendo la foto de ${fragancia.nombre}…`);
+    setAviso(`Preparando la foto de ${fragancia.nombre}…`);
     setError("");
     try {
-      const ruta = await subirFoto(token, fragancia.slug, archivo);
+      const { bytes, extension } = await prepararFoto(archivo);
+      const ruta = await subirFoto(token, fragancia.slug, bytes, extension);
       editar(fragancia.slug, { imagen: ruta });
-      setAviso("Foto subida. Falta publicar los cambios para que se vea.");
+      setAviso("Foto subida. Falta publicar los cambios para que se vea en el sitio.");
     } catch (e) {
       setAviso("");
       setError(e instanceof Error ? e.message : String(e));
     }
+  }
+
+  function mover(fragancia: Fragancia, paso: -1 | 1) {
+    if (!catalogo) return;
+    const lista = [...catalogo.fragancias];
+    const i = lista.findIndex((f) => f.slug === fragancia.slug);
+    const j = i + paso;
+    if (i < 0 || j < 0 || j >= lista.length) return;
+    [lista[i], lista[j]] = [lista[j], lista[i]];
+    setCatalogo({ ...catalogo, fragancias: lista });
+  }
+
+  function agregarMedida(fragancia: Fragancia) {
+    const mayor = Math.max(0, ...fragancia.medidas.map((m) => m.ml));
+    editar(fragancia.slug, {
+      medidas: [
+        ...fragancia.medidas,
+        { ml: mayor + 5, precio: 0, disponible: true },
+      ],
+    });
+  }
+
+  function quitarMedida(fragancia: Fragancia, ml: number) {
+    if (fragancia.medidas.length <= 1) {
+      setError("Cada fragancia necesita al menos una medida.");
+      return;
+    }
+    editar(fragancia.slug, {
+      medidas: fragancia.medidas.filter((m) => m.ml !== ml),
+    });
+  }
+
+  function cambiarMl(fragancia: Fragancia, viejo: number, nuevo: number) {
+    editar(fragancia.slug, {
+      medidas: fragancia.medidas.map((m) =>
+        m.ml === viejo ? { ...m, ml: nuevo } : m,
+      ),
+    });
   }
 
   function revisar(c: Catalogo): string | null {
@@ -184,6 +274,11 @@ export function EditorCatalogo() {
       if (f.acordes.length === 0) return `${donde} no tiene ningún acorde cargado.`;
       if (f.medidas.some((m) => !Number.isFinite(m.precio) || m.precio < 0))
         return `Hay un precio inválido en ${donde}.`;
+      if (f.medidas.length === 0) return `${donde} se quedó sin medidas.`;
+      if (f.medidas.some((m) => !Number.isFinite(m.ml) || m.ml <= 0))
+        return `Hay una medida sin mililitros en ${donde}.`;
+      if (new Set(f.medidas.map((m) => m.ml)).size !== f.medidas.length)
+        return `${donde} tiene dos veces la misma medida.`;
       if (slugs.has(f.slug)) return `${donde} está repetida en el muestrario.`;
       slugs.add(f.slug);
     }
@@ -329,17 +424,29 @@ export function EditorCatalogo() {
         </div>
 
         <ul className="mt-6 border-t border-oro-hondo/30">
-          {visibles.map((fragancia) => (
+          {visibles.map((fragancia, i) => (
             <Fila
               key={fragancia.slug}
               fragancia={fragancia}
               abierta={abierta === fragancia.slug}
+              // Reordenar con la lista filtrada movería la fragancia a un lugar
+              // que no es el que se ve. Con filtro puesto, se desactiva.
+              orden={
+                filtro.trim()
+                  ? null
+                  : { primera: i === 0, ultima: i === visibles.length - 1 }
+              }
+              onMover={(paso) => mover(fragancia, paso)}
               onAbrir={() =>
                 setAbierta(abierta === fragancia.slug ? null : fragancia.slug)
               }
               onEditar={(cambio) => renombrar(fragancia, cambio)}
               onEditarMedida={(ml, cambio) => editarMedida(fragancia.slug, ml, cambio)}
+              onCambiarMl={(viejo, nuevo) => cambiarMl(fragancia, viejo, nuevo)}
+              onAgregarMedida={() => agregarMedida(fragancia)}
+              onQuitarMedida={(ml) => quitarMedida(fragancia, ml)}
               onFoto={(archivo) => ponerFoto(fragancia, archivo)}
+              onQuitarFoto={() => editar(fragancia.slug, { imagen: null })}
               onEliminar={() => eliminar(fragancia)}
             />
           ))}
@@ -358,18 +465,30 @@ export function EditorCatalogo() {
 function Fila({
   fragancia,
   abierta,
+  orden,
+  onMover,
   onAbrir,
   onEditar,
   onEditarMedida,
+  onCambiarMl,
+  onAgregarMedida,
+  onQuitarMedida,
   onFoto,
+  onQuitarFoto,
   onEliminar,
 }: {
   fragancia: Fragancia;
   abierta: boolean;
+  orden: { primera: boolean; ultima: boolean } | null;
+  onMover: (paso: -1 | 1) => void;
   onAbrir: () => void;
   onEditar: (cambio: Partial<Fragancia>) => void;
   onEditarMedida: (ml: number, cambio: { precio?: number; disponible?: boolean }) => void;
+  onCambiarMl: (viejo: number, nuevo: number) => void;
+  onAgregarMedida: () => void;
+  onQuitarMedida: (ml: number) => void;
   onFoto: (archivo: File) => void;
+  onQuitarFoto: () => void;
   onEliminar: () => void;
 }) {
   const titulo = `${fragancia.casa} ${fragancia.nombre}`.trim() || "Fragancia nueva";
@@ -424,6 +543,29 @@ function Fila({
             </div>
           ))}
 
+          {orden && (
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => onMover(-1)}
+                disabled={orden.primera}
+                aria-label={`Subir ${titulo} en el muestrario`}
+                className="border border-oro-hondo px-3 py-2 text-crema-tenue transition-colors duration-150 hover:border-oro hover:text-crema disabled:opacity-30"
+              >
+                ↑
+              </button>
+              <button
+                type="button"
+                onClick={() => onMover(1)}
+                disabled={orden.ultima}
+                aria-label={`Bajar ${titulo} en el muestrario`}
+                className="border border-oro-hondo px-3 py-2 text-crema-tenue transition-colors duration-150 hover:border-oro hover:text-crema disabled:opacity-30"
+              >
+                ↓
+              </button>
+            </div>
+          )}
+
           <button
             type="button"
             onClick={onAbrir}
@@ -477,31 +619,105 @@ function Fila({
             onCambio={(v) => onEditar({ cuandoUsarlo: v || undefined })}
           />
 
+          <fieldset className="sm:col-span-2">
+            <legend className="etiqueta text-crema-tenue">Medidas</legend>
+            <p className="mt-2 text-xs text-crema-tenue">
+              Los mililitros de cada decant. El precio y el stock se cargan arriba.
+            </p>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              {fragancia.medidas.map((medida) => (
+                <div
+                  key={medida.ml}
+                  className="flex items-center gap-2 border border-oro-hondo/60 px-3 py-2"
+                >
+                  <label className="flex items-center gap-2">
+                    <span className="sr-only">Mililitros de esta medida</span>
+                    <input
+                      type="number"
+                      min={1}
+                      step={1}
+                      value={medida.ml}
+                      onChange={(e) =>
+                        onCambiarMl(medida.ml, Number(e.target.value) || medida.ml)
+                      }
+                      className="cifras w-14 border-b border-oro-hondo bg-transparent py-1 text-crema"
+                    />
+                    <span className="etiqueta text-crema-tenue">ml</span>
+                  </label>
+                  <span className="cifras text-xs text-crema-tenue">
+                    ≈ {atomizaciones(medida.ml)}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => onQuitarMedida(medida.ml)}
+                    aria-label={`Quitar la medida de ${medida.ml} ml`}
+                    className="text-crema-tenue transition-colors duration-150 hover:text-[var(--color-aviso)]"
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={onAgregarMedida}
+                className="etiqueta border border-oro-hondo px-4 py-2 text-crema-tenue transition-colors duration-150 hover:border-oro hover:text-crema"
+              >
+                Agregar medida
+              </button>
+            </div>
+          </fieldset>
+
           <div className="sm:col-span-2">
             <p className="etiqueta text-crema-tenue">Foto del frasco</p>
-            <p className="mt-2 text-xs text-crema-tenue">
-              {fragancia.imagen
-                ? `Ahora usa ${fragancia.imagen}`
-                : "Sin foto: la ficha muestra el vial dibujado."}{" "}
-              Fondo oscuro y vertical se ven mejor. Máximo 2 MB.
-            </p>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => {
-                const archivo = e.target.files?.[0];
-                if (archivo) onFoto(archivo);
-                e.target.value = "";
-              }}
-              className="mt-3 block w-full text-sm text-crema-tenue file:mr-4 file:border file:border-oro-hondo file:bg-transparent file:px-4 file:py-2 file:text-crema"
-            />
+            <div className="mt-3 flex flex-wrap items-start gap-5">
+              <div className="hueco flex h-[150px] w-[120px] shrink-0 items-center justify-center overflow-hidden border border-oro-hondo/40">
+                {fragancia.imagen ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={urlFotoEnRepo(fragancia.imagen)}
+                    alt={`Foto actual de ${titulo}`}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <span className="etiqueta px-2 text-center text-crema-tenue">
+                    Sin foto
+                  </span>
+                )}
+              </div>
+
+              <div className="min-w-[14rem] flex-1">
+                <p className="text-xs leading-relaxed text-crema-tenue">
+                  {fragancia.imagen
+                    ? "Sube otra para reemplazarla."
+                    : "Sin foto, la ficha muestra el vial dibujado."}{" "}
+                  Se recorta al centro en vertical y se reduce sola: puedes subir
+                  la foto tal como salió del teléfono.
+                </p>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const archivo = e.target.files?.[0];
+                    if (archivo) onFoto(archivo);
+                    e.target.value = "";
+                  }}
+                  className="mt-3 block w-full text-sm text-crema-tenue file:mr-4 file:border file:border-oro-hondo file:bg-transparent file:px-4 file:py-2 file:text-crema"
+                />
+                {fragancia.imagen && (
+                  <button
+                    type="button"
+                    onClick={onQuitarFoto}
+                    className="etiqueta mt-3 border border-oro-hondo px-4 py-2 text-crema-tenue transition-colors duration-150 hover:border-oro hover:text-crema"
+                  >
+                    Quitar la foto
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
 
           <div className="flex items-center justify-between gap-4 sm:col-span-2">
-            <p className="cifras text-xs text-crema-tenue">
-              /fragancia/{fragancia.slug}/ · {atomizaciones(fragancia.medidas[0]?.ml ?? 5)}{" "}
-              atomizaciones la más pequeña
-            </p>
+            <p className="cifras text-xs text-crema-tenue">/fragancia/{fragancia.slug}/</p>
             <button
               type="button"
               onClick={onEliminar}

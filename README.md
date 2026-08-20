@@ -29,10 +29,22 @@ Hay dos caminos y los dos escriben el mismo archivo, `src/datos/fragancias.json`
 ### Desde el panel, sin tocar código
 
 `https://matiasgrande.github.io/pure-decants/admin/` — el dueño entra con un token de
-GitHub y desde ahí cambia precios, marca qué medidas hay en stock, edita textos, sube la
-foto de un frasco y agrega o quita fragancias. Al pulsar **Publicar cambios** se guarda un
-commit en `main`, el flujo de despliegue corre solo y en un par de minutos el sitio está al
-día.
+GitHub y desde ahí maneja todo el muestrario:
+
+- precios y stock de cada medida, desde la fila, sin abrir nada;
+- casa, nombre, concentración, acordes, descripción y «cuándo usarlo»;
+- las medidas mismas: cambiar los mililitros, agregar un tamaño nuevo o quitar uno;
+- la foto del frasco: subir, reemplazar o quitar (sin foto sale el vial dibujado);
+- el orden en que aparecen en el muestrario, con las flechas de cada fila;
+- agregar y quitar fragancias.
+
+Al pulsar **Publicar cambios** se guarda un commit en `main`, el flujo de despliegue corre
+solo y en un par de minutos el sitio está al día.
+
+La foto se procesa en el navegador antes de subirla: se recorta al centro en vertical, se
+reduce a 800×1000 y se convierte a webp de unos 60 KB. Se puede subir la foto tal como
+salió del teléfono. Cada subida guarda un archivo con nombre nuevo, porque reusar el mismo
+haría que el navegador siguiera mostrando la foto vieja durante horas.
 
 El token se crea una sola vez en
 [github.com/settings/personal-access-tokens](https://github.com/settings/personal-access-tokens):
@@ -65,8 +77,10 @@ pon la foto en `public/perfumes/<slug>.webp`. Si todavía no hay foto, deja
 - **Dos precios sin cargar.** `Gucci Guilty Pour Homme Parfum` y
   `Maison Alhambra Amber and Leather` no aparecen en la lista de precios que pasó. Se
   cargan desde el panel.
-- **Fotos.** Solo seis fragancias tienen foto propia; las otras diecinueve muestran el vial
-  dibujado hasta que se suba una desde el panel.
+- **Fotos propias.** Veintitrés de las veinticinco tienen foto, pero salen de campañas de
+  las marcas y de Pinterest: sirven para arrancar, no son del negocio. Reemplazarlas por
+  fotos de sus propios frascos desde el panel es lo que hace la diferencia. `Dark Aoud` y
+  `Woody Oud` no tienen ninguna y muestran el vial dibujado.
 - **Textos del catálogo.** Casa, nombre, acordes y precios salen de su catálogo y su lista
   de precios. Las descripciones y el «cuándo usarlo» de las seis primeras las escribió el
   sitio: revisarlas o borrarlas desde el panel.
