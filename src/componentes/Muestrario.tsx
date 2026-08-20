@@ -104,8 +104,14 @@ export function Muestrario({ fragancias }: { fragancias: Fragancia[] }) {
           <div id="filtro-casas" ref={cajon} className="mt-5">
             {/* Quince casas apiladas se comen la pantalla del teléfono antes de
                 que aparezca el primer frasco: en móvil van en una fila que rueda. */}
-            <div className="-mx-6 flex gap-2 overflow-x-auto px-6 pb-2 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
-              <Chip activo={!casa} onClick={() => setCasa("")}>
+            <div className="sin-barra -mx-6 flex gap-2 overflow-x-auto px-6 pb-2 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
+              <Chip
+                activo={!casa}
+                onClick={() => {
+                  setCasa("");
+                  setAbierto(false);
+                }}
+              >
                 Todas
               </Chip>
               {casas.map((nombre) => (

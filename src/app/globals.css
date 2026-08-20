@@ -90,6 +90,16 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* La fila de casas rueda con el dedo; la barra gris del navegador la ensucia. */
+@utility sin-barra {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* El rebaje del estuche donde descansa cada vial. */
 @utility hueco {
   background-color: var(--color-tinta-hueco);

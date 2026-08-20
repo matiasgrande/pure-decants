@@ -13,6 +13,7 @@ export type Familia =
   | "afrutado"
   | "dulce"
   | "vainilla"
+  | "nuez"
   | "talco"
   | "ambar"
   | "especias"
@@ -33,6 +34,7 @@ export const COLOR: Record<Familia, string> = {
   afrutado: "#C4736A",
   dulce: "#BE8798",
   vainilla: "#D8C39A",
+  nuez: "#C2A177",
   talco: "#ABA79F",
   ambar: "#C9903F",
   especias: "#B96A3C",
@@ -62,8 +64,8 @@ const FAMILIAS: Record<string, Familia> = {
   afrutados: "afrutado",
   dulce: "dulce",
   avainillado: "vainilla",
-  almendrado: "vainilla",
-  nueces: "vainilla",
+  almendrado: "nuez",
+  nueces: "nuez",
   atalcado: "talco",
   almizclado: "talco",
   ámbar: "ambar",

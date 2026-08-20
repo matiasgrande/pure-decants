@@ -6,6 +6,7 @@ import { FotoFragancia } from "@/componentes/FotoFragancia";
 import { useBandeja } from "@/lib/bandeja";
 import { atomizaciones, formatearPrecio, type Fragancia } from "@/lib/catalogo";
 import { colorDe } from "@/lib/acordes";
+import { IconoAcorde } from "@/componentes/IconoAcorde";
 
 export function CasillaFragancia({
   fragancia,
@@ -67,10 +68,10 @@ export function CasillaFragancia({
                 key={acorde}
                 className="flex items-center gap-2 text-sm text-crema-tenue"
               >
-                <span
-                  aria-hidden="true"
-                  className="size-2 shrink-0"
-                  style={{ backgroundColor: colorDe(acorde) }}
+                <IconoAcorde
+                  acorde={acorde}
+                  className="size-[1.15rem] shrink-0"
+                  style={{ color: colorDe(acorde) }}
                 />
                 {acorde}
               </li>

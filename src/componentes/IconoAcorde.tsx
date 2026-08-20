@@ -56,6 +56,12 @@ const TRAZOS: Record<Familia, React.ReactNode> = {
       <path d="M8.6 3.4c1.4.6 2.2 1.4 2.4 2.4M15.6 5c1.2.5 1.9 1.2 2.1 2.1" />
     </>
   ),
+  nuez: (
+    <>
+      <path d="M12 3.2c3.4 3 5 6 5 9.1 0 4.4-2.2 8.3-5 8.3s-5-3.9-5-8.3c0-3.1 1.6-6.1 5-9.1Z" />
+      <path d="M12 6.4v13" />
+    </>
+  ),
   talco: (
     <>
       <circle cx="7" cy="8" r="1.1" />

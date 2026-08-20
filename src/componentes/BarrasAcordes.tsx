@@ -26,7 +26,13 @@ export function BarrasAcordes({ acordes }: { acordes: string[] }) {
         duration: 0.9,
         ease: "power3.out",
         stagger: 0.08,
-        scrollTrigger: { trigger: raiz.current, start: "top 85%" },
+        scrollTrigger: {
+          trigger: raiz.current,
+          start: "top 85%",
+          // Al salir de pantalla las barras vuelven a cero, y se rellenan de
+          // nuevo cada vez que el visitante regresa: entrando o subiendo.
+          toggleActions: "restart none restart reset",
+        },
       });
     },
     { scope: raiz },
