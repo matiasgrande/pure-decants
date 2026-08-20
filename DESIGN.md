@@ -19,24 +19,30 @@ typography:
     fontWeight: 400
     lineHeight: 0.92
     letterSpacing: "0.02em"
+  rotulo:
+    fontFamily: "var(--fuente-display), Didot, serif"
+    fontSize: "clamp(1.05rem, 3.6vw, 1.3rem)"
+    fontWeight: 500
+    lineHeight: 1.25
+    letterSpacing: "0.26em"
   grabado:
     fontFamily: "var(--fuente-display), Didot, serif"
-    fontSize: "clamp(0.72rem, 1.6vw, 0.85rem)"
+    fontSize: "clamp(0.82rem, 2.2vw, 0.95rem)"
     fontWeight: 500
-    lineHeight: 1.2
-    letterSpacing: "0.34em"
+    lineHeight: 1.25
+    letterSpacing: "0.32em"
   body:
     fontFamily: "var(--fuente-texto), system-ui, sans-serif"
-    fontSize: "1rem"
+    fontSize: "clamp(1rem, 2.9vw, 1.0625rem)"
     fontWeight: 400
     lineHeight: 1.65
     letterSpacing: "0.005em"
   etiqueta:
     fontFamily: "var(--fuente-texto), system-ui, sans-serif"
-    fontSize: "0.7rem"
+    fontSize: "0.78rem"
     fontWeight: 500
-    lineHeight: 1.2
-    letterSpacing: "0.2em"
+    lineHeight: 1.25
+    letterSpacing: "0.18em"
 rounded:
   nada: "0px"
   vial: "2px"
@@ -116,6 +122,12 @@ señala excepción.
 Regla de proporción: el negro es el 85% de la superficie, el crema el 12%, el dorado el 3%.
 El dorado deja de significar cuando cubre áreas.
 
+**La paleta de acordes es la excepción, y está acotada.** Cada familia olfativa tiene su color
+en `src/lib/acordes.ts` —cítrico amarillo, acuático azul, cuero marrón, y así— y aparece en
+dos lugares nada más: la barra del acorde en la ficha y su icono, del tamaño de una palabra,
+en la casilla. Todos van bajados de saturación para convivir con el negro y ninguno baja de
+3:1 contra el fondo. Fuera de esos dos lugares, el sitio sigue siendo negro, crema y dorado.
+
 ## Typography
 
 Dos familias, ambas variables y subseteadas a latín.
@@ -124,7 +136,12 @@ Dos familias, ambas variables y subseteadas a latín.
 catálogo. Dos usos y no más: títulos grandes en tamaño óptico display, y "grabados" — líneas
 cortas en mayúsculas con `letter-spacing: 0.34em`, que imitan el texto impreso sobre vidrio de
 una etiqueta. El grabado es el kicker del sistema, y por eso aparece contado: encabeza la
-bandeja y la ficha de fragancia, no cada sección.
+ficha de fragancia y la casa de cada casilla, no cada párrafo.
+
+**Rótulo** es el mismo grabado a escala de encabezado de sección, con el tracking abierto un
+punto menos (0.26em) porque a ese tamaño 0.32em desarma la palabra. Lo llevan los cuatro
+encabezados que estructuran el sitio —"Cómo funciona", "El muestrario", "Tu bandeja" y los
+tres del pie— y nada más. Rótulo y grabado no se mezclan dentro de un mismo bloque.
 
 **Archivo** para todo lo demás: párrafos, controles, etiquetas de interfaz, cifras. Las
 medidas (5 ml, 10 ml) y los precios usan `font-variant-numeric: tabular-nums` para que las
@@ -132,6 +149,10 @@ columnas de la bandeja alineen.
 
 Medida de lectura entre 62 y 72 caracteres. Display tope 5.6rem. Tracking del display 0.02em
 positivo — este serif se abre, no se aprieta.
+
+El cuerpo, el grabado y el rótulo escalan con `clamp` contra el ancho de la pantalla. No es
+adorno: el público entra desde el teléfono, y con tamaños fijos de escritorio todo lo que hay
+del encabezado para abajo se leía chico a 390 px.
 
 ## Layout
 
