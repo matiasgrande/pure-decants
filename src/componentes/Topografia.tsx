@@ -7,9 +7,11 @@ import curvas from "./topografia-paths.json";
 export function Topografia({
   className = "",
   opacidad = 0.16,
+  style,
 }: {
   className?: string;
   opacidad?: number;
+  style?: React.CSSProperties;
 }) {
   return (
     <svg
@@ -17,7 +19,7 @@ export function Topografia({
       aria-hidden="true"
       focusable="false"
       className={className}
-      style={{ opacity: opacidad }}
+      style={{ opacity: opacidad, ...style }}
     >
       <g fill="none" stroke="var(--color-oro)" strokeWidth="0.9">
         {curvas.map((d, i) => (

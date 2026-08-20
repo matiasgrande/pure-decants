@@ -34,6 +34,8 @@ jobs:
           # El repo se sirve en https://<usuario>.github.io/<nombre-del-repo>/
           NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
           NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io
+          # El panel de /admin commitea contra este mismo repositorio.
+          NEXT_PUBLIC_REPO: ${{ github.repository }}
         run: npm run build
 
       # Sin esto, Pages ignora todo lo que empiece con guion bajo (_next/).

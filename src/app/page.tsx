@@ -142,8 +142,8 @@ export default function Inicio() {
                 color: "var(--color-aviso)",
               }}
             >
-              Los precios los confirma el vendedor por WhatsApp. Puedes armar tu
-              bandeja igual: el pedido llega con todo lo que elegiste.
+              Algunas fragancias todavía no tienen precio cargado. Puedes armar tu
+              bandeja igual: esas se confirman por WhatsApp.
             </p>
           )}
 

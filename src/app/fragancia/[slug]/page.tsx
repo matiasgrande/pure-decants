@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { FotoFragancia } from "@/componentes/FotoFragancia";
 import { SelectorFragancia } from "@/componentes/SelectorFragancia";
 import { Topografia } from "@/componentes/Topografia";
 import { buscarFragancia, fragancias } from "@/lib/catalogo";
@@ -20,10 +20,16 @@ export async function generateMetadata({
   const fragancia = buscarFragancia(slug);
   if (!fragancia) return {};
 
+  const acordes = fragancia.acordes.join(", ").toLowerCase();
+
   return {
     title: `${fragancia.casa} ${fragancia.nombre} en decant de 5 y 10 ml`,
-    description: `${fragancia.descripcion} Decant original de ${fragancia.casa} ${fragancia.nombre}, en 5 y 10 ml.`,
-    openGraph: { images: [{ url: rutaPublica(fragancia.imagen) }] },
+    description:
+      fragancia.descripcion ??
+      `Decant original de ${fragancia.casa} ${fragancia.nombre} en 5 y 10 ml. Acordes: ${acordes}.`,
+    openGraph: fragancia.imagen
+      ? { images: [{ url: rutaPublica(fragancia.imagen) }] }
+      : undefined,
   };
 }
 
@@ -35,12 +41,6 @@ export default async function FichaFragancia({
   const { slug } = await params;
   const fragancia = buscarFragancia(slug);
   if (!fragancia) notFound();
-
-  const piramide = [
-    { titulo: "Salida", notas: fragancia.notas.salida },
-    { titulo: "Corazón", notas: fragancia.notas.corazon },
-    { titulo: "Fondo", notas: fragancia.notas.fondo },
-  ];
 
   return (
     <article className="relative overflow-hidden">
@@ -58,14 +58,11 @@ export default async function FichaFragancia({
         </Link>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <div className="hueco relative aspect-4/5 overflow-hidden border border-oro-hondo/40">
-            <Image
-              src={rutaPublica(fragancia.imagen)}
-              alt={`${fragancia.casa} ${fragancia.nombre}`}
-              fill
-              sizes="(max-width: 1024px) 100vw, 45vw"
-              className="object-cover"
-              priority
+          <div className="hueco group relative aspect-4/5 overflow-hidden border border-oro-hondo/40">
+            <FotoFragancia
+              fragancia={fragancia}
+              prioridad
+              tamanos="(max-width: 1024px) 100vw, 45vw"
             />
           </div>
 
@@ -76,18 +73,22 @@ export default async function FichaFragancia({
               {fragancia.nombre}
             </h1>
 
-            <p className="mt-3 text-crema-tenue">
-              {fragancia.concentracion} · {fragancia.familia}
-            </p>
+            {fragancia.concentracion && (
+              <p className="mt-3 text-crema-tenue">{fragancia.concentracion}</p>
+            )}
 
-            <p className="mt-8 max-w-[62ch] leading-relaxed text-crema">
-              {fragancia.descripcion}
-            </p>
+            {fragancia.descripcion && (
+              <p className="mt-8 max-w-[62ch] leading-relaxed text-crema">
+                {fragancia.descripcion}
+              </p>
+            )}
 
-            <p className="mt-4 max-w-[62ch] text-sm leading-relaxed text-crema-tenue">
-              <span className="text-oro-claro">Cuándo usarlo. </span>
-              {fragancia.cuandoUsarlo}
-            </p>
+            {fragancia.cuandoUsarlo && (
+              <p className="mt-4 max-w-[62ch] text-sm leading-relaxed text-crema-tenue">
+                <span className="text-oro-claro">Cuándo usarlo. </span>
+                {fragancia.cuandoUsarlo}
+              </p>
+            )}
 
             <div className="mt-10">
               <SelectorFragancia fragancia={fragancia} />
@@ -95,21 +96,24 @@ export default async function FichaFragancia({
 
             <div className="mt-12 border-t border-oro-hondo/30 pt-10">
               <h2 className="font-display text-[clamp(1.6rem,4vw,2.4rem)] leading-tight tracking-[0.02em] text-crema">
-                Pirámide olfativa
+                Acordes principales
               </h2>
-              <dl className="mt-6 divide-y divide-oro-hondo/25 border-t border-oro-hondo/25">
-                {piramide.map((nivel) => (
-                  <div
-                    key={nivel.titulo}
-                    className="grid grid-cols-[104px_1fr] items-baseline gap-4 py-4"
+              <p className="mt-3 max-w-[62ch] text-sm text-crema-tenue">
+                Cómo huele, de lo que más se siente a lo que menos.
+              </p>
+              <ol className="mt-6 divide-y divide-oro-hondo/25 border-t border-oro-hondo/25">
+                {fragancia.acordes.map((acorde, i) => (
+                  <li
+                    key={`${i}-${acorde}`}
+                    className="grid grid-cols-[2.5rem_1fr] items-baseline gap-4 py-4"
                   >
-                    <dt className="grabado text-oro">{nivel.titulo}</dt>
-                    <dd className="text-sm text-crema">
-                      {nivel.notas.join(" · ")}
-                    </dd>
-                  </div>
+                    <span className="cifras text-sm text-oro">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-crema">{acorde}</span>
+                  </li>
                 ))}
-              </dl>
+              </ol>
             </div>
           </div>
         </div>

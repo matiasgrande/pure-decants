@@ -5,7 +5,7 @@ import { useBandeja } from "@/lib/bandeja";
 import {
   atomizaciones,
   formatearPrecio,
-  hayPreciosPendientes,
+  tienePrecioPendiente,
   type Fragancia,
 } from "@/lib/catalogo";
 
@@ -98,7 +98,7 @@ export function SelectorFragancia({ fragancia }: { fragancia: Fragancia }) {
         </button>
       </div>
 
-      {hayPreciosPendientes && (
+      {tienePrecioPendiente(fragancia) && (
         <p
           className="mt-5 border-t pt-4 text-sm leading-relaxed"
           style={{
@@ -106,8 +106,8 @@ export function SelectorFragancia({ fragancia }: { fragancia: Fragancia }) {
             color: "var(--color-aviso)",
           }}
         >
-          El precio lo confirma el vendedor por WhatsApp. Puedes armar tu bandeja
-          igual: el pedido llega con todo lo que elegiste.
+          Este todavía no tiene precio cargado. Lo confirma el vendedor por
+          WhatsApp: puedes ponerlo en la bandeja igual.
         </p>
       )}
     </div>

@@ -8,10 +8,12 @@
 export function Vial({
   className = "",
   lleno = 0.72,
+  style,
 }: {
   className?: string;
   /** Cuánto líquido muestra el vial, de 0 a 1. */
   lleno?: number;
+  style?: React.CSSProperties;
 }) {
   const base = 92;
   const tope = 26;
@@ -23,6 +25,7 @@ export function Vial({
       aria-hidden="true"
       focusable="false"
       className={className}
+      style={style}
     >
       {/* atomizador */}
       <rect x="14" y="1" width="6" height="7" rx="1" fill="#e6d2a4" />

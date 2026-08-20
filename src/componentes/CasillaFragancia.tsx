@@ -1,13 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
+import { FotoFragancia } from "@/componentes/FotoFragancia";
 import { useBandeja } from "@/lib/bandeja";
-import { rutaPublica } from "@/lib/rutas";
 import {
   atomizaciones,
   formatearPrecio,
+  resumenAcordes,
   type Fragancia,
 } from "@/lib/catalogo";
 
@@ -45,13 +45,10 @@ export function CasillaFragancia({
         href={`/fragancia/${fragancia.slug}`}
         className="hueco relative block aspect-4/5 overflow-hidden"
       >
-        <Image
-          src={rutaPublica(fragancia.imagen)}
-          alt={`${fragancia.casa} ${fragancia.nombre}`}
-          fill
-          sizes="(max-width: 520px) 100vw, (max-width: 1180px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-          priority={prioridad}
+        <FotoFragancia
+          fragancia={fragancia}
+          prioridad={prioridad}
+          tamanos="(max-width: 520px) 100vw, (max-width: 1180px) 50vw, 33vw"
         />
         <span className="grabado absolute top-3 left-3 bg-tinta/70 px-2 py-1 text-oro-claro">
           {fragancia.casa}
@@ -65,8 +62,11 @@ export function CasillaFragancia({
               {fragancia.nombre}
             </Link>
           </h3>
-          <p className="mt-1 text-sm text-crema-tenue">
-            {fragancia.familia} · {fragancia.concentracion}
+          {fragancia.concentracion && (
+            <p className="grabado mt-2 text-oro">{fragancia.concentracion}</p>
+          )}
+          <p className="mt-2 text-sm text-crema-tenue">
+            {resumenAcordes(fragancia)}
           </p>
         </div>
 

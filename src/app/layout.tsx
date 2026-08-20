@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bodoni_Moda, Archivo } from "next/font/google";
 import { ProveedorBandeja } from "@/lib/bandeja";
 import { Encabezado } from "@/componentes/Encabezado";
-import { PanelBandeja } from "@/componentes/PanelBandeja";
+import { Armazon } from "@/componentes/Armazon";
 import { PieDePagina } from "@/componentes/PieDePagina";
 import { DefsVial } from "@/componentes/Vial";
 import { rutaPublica, SITIO } from "@/lib/rutas";
@@ -66,15 +66,9 @@ export default function RootLayout({
           >
             Saltar al contenido
           </a>
-          {/* La bandeja es fija: el panel lateral en escritorio y la barra
-              inferior en móvil se comen ese espacio, así que todo el documento
-              se corre para que nada quede tapado. */}
-          <div className="pb-24 lg:pr-[366px] lg:pb-0">
-            <Encabezado />
-            <main id="contenido">{children}</main>
-            <PieDePagina />
-          </div>
-          <PanelBandeja />
+          <Armazon encabezado={<Encabezado />} pie={<PieDePagina />}>
+            {children}
+          </Armazon>
         </ProveedorBandeja>
       </body>
     </html>

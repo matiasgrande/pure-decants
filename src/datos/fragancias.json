@@ -1,122 +1,296 @@
 {
   "moneda": "USD",
-  "nota": "BORRADOR PENDIENTE DE REVISIÓN DEL DUEÑO. Confirmado: casa, medidas de 5 y 10 ml, y las fotos (salen de @puredecantsve). Escrito por el sitio y sin confirmar: descripciones, cuandoUsarlo, notas olfativas y disponible. Los precios en 0 se muestran como pendientes en la web; carga el valor real y vuelve a desplegar.",
+  "nota": "Casa, nombre, acordes y precios salen del catálogo y la lista de precios que pasó el dueño (PVP en dólares, referencia BCV). Las descripciones y el campo cuandoUsarlo los escribió el sitio y el dueño puede corregirlos desde /admin. Precio en 0 = sin definir: la web lo muestra como pendiente y no lo suma.",
   "fragancias": [
     {
       "slug": "le-male-le-parfum",
       "casa": "Jean Paul Gaultier",
       "nombre": "Le Male Le Parfum",
-      "concentracion": "Eau de Parfum Intense",
-      "familia": "Oriental amaderado",
-      "genero": "masculino",
+      "concentracion": "Le Parfum",
+      "acordes": ["Avainillado", "Amaderado", "Fresco especiado", "Fresco", "Atalcado"],
       "descripcion": "El torso de siempre, en su versión más densa y dulce. Lavanda al abrir, cardamomo detrás, y una base de vainilla ahumada que se queda pegada a la ropa hasta el día siguiente.",
       "cuandoUsarlo": "Salidas de noche y clima fresco. Pesa demasiado para el mediodía caribeño.",
-      "notas": {
-        "salida": ["Lavanda", "Cardamomo"],
-        "corazon": ["Iris", "Canela"],
-        "fondo": ["Vainilla", "Haba tonka", "Madera de cedro"]
-      },
       "imagen": "/perfumes/le-male-le-parfum.webp",
       "medidas": [
-        { "ml": 5, "precio": 0, "disponible": true },
-        { "ml": 10, "precio": 0, "disponible": true }
-      ]
-    },
-    {
-      "slug": "armani-code-parfum",
-      "casa": "Giorgio Armani",
-      "nombre": "Code Parfum",
-      "concentracion": "Parfum",
-      "familia": "Ámbar especiado",
-      "genero": "masculino",
-      "descripcion": "Cítrico verde arriba, corazón de haba tonka y una base de ámbar cremoso. Es el Code de siempre con más cuerpo y menos dulzor de tabaco.",
-      "cuandoUsarlo": "Oficina, reuniones, cena. El más fácil de llevar de toda la bandeja.",
-      "notas": {
-        "salida": ["Bergamota", "Limón verde"],
-        "corazon": ["Haba tonka", "Nuez moscada"],
-        "fondo": ["Ámbar", "Vetiver"]
-      },
-      "imagen": "/perfumes/armani-code-parfum.webp",
-      "medidas": [
-        { "ml": 5, "precio": 0, "disponible": true },
-        { "ml": 10, "precio": 0, "disponible": true }
-      ]
-    },
-    {
-      "slug": "ysl-y-edp",
-      "casa": "Yves Saint Laurent",
-      "nombre": "Y",
-      "concentracion": "Eau de Parfum",
-      "familia": "Fougère aromático",
-      "genero": "masculino",
-      "descripcion": "Manzana y jengibre de entrada, salvia en el medio, y una base de haba tonka con madera de cedro. Limpio y afilado, sin resultar aburrido.",
-      "cuandoUsarlo": "Diario, todo el año. Aguanta el calor sin volverse pesado.",
-      "notas": {
-        "salida": ["Manzana", "Jengibre", "Bergamota"],
-        "corazon": ["Salvia", "Geranio"],
-        "fondo": ["Haba tonka", "Cedro", "Vetiver"]
-      },
-      "imagen": "/perfumes/ysl-y-edp.webp",
-      "medidas": [
-        { "ml": 5, "precio": 0, "disponible": true },
-        { "ml": 10, "precio": 0, "disponible": true }
-      ]
-    },
-    {
-      "slug": "versace-eros-edp",
-      "casa": "Versace",
-      "nombre": "Eros",
-      "concentracion": "Eau de Parfum",
-      "familia": "Oriental fougère",
-      "genero": "masculino",
-      "descripcion": "Menta y manzana verde arriba, vainilla y haba tonka abajo. Dulce, frío y ruidoso: se siente a metros de distancia.",
-      "cuandoUsarlo": "Noche, fiesta, cuando la idea es que te pregunten qué llevas puesto.",
-      "notas": {
-        "salida": ["Menta", "Manzana verde", "Limón"],
-        "corazon": ["Haba tonka", "Geranio"],
-        "fondo": ["Vainilla", "Vetiver", "Cedro"]
-      },
-      "imagen": "/perfumes/versace-eros-edp.webp",
-      "medidas": [
-        { "ml": 5, "precio": 0, "disponible": true },
-        { "ml": 10, "precio": 0, "disponible": true }
-      ]
-    },
-    {
-      "slug": "versace-dylan-blue",
-      "casa": "Versace",
-      "nombre": "Dylan Blue",
-      "concentracion": "Eau de Toilette",
-      "familia": "Acuático aromático",
-      "genero": "masculino",
-      "descripcion": "Salino y mineral, con toronja arriba y una base de almizcle con incienso. La versión marina de la casa, más contenida que el Eros.",
-      "cuandoUsarlo": "Día, playa, calor. Hecho para el clima de la isla.",
-      "notas": {
-        "salida": ["Toronja", "Bergamota", "Notas acuáticas"],
-        "corazon": ["Violeta", "Papiro", "Pimienta negra"],
-        "fondo": ["Almizcle", "Incienso", "Pachulí"]
-      },
-      "imagen": "/perfumes/versace-dylan-blue.webp",
-      "medidas": [
-        { "ml": 5, "precio": 0, "disponible": true },
-        { "ml": 10, "precio": 0, "disponible": true }
+        { "ml": 5, "precio": 12, "disponible": true },
+        { "ml": 10, "precio": 22, "disponible": true }
       ]
     },
     {
       "slug": "acqua-di-gio-profondo",
       "casa": "Giorgio Armani",
-      "nombre": "Acqua di Giò Profondo",
+      "nombre": "Acqua di Gio Profondo",
       "concentracion": "Eau de Parfum",
-      "familia": "Acuático amaderado",
-      "genero": "masculino",
-      "descripcion": "Agua marina sobre roca mojada: bergamota, romero y una base de pachulí con almizcle mineral. Fresco pero oscuro, no el acuático ligero de siempre.",
-      "cuandoUsarlo": "Diario y de día. El más versátil si solo vas a llevarte uno.",
-      "notas": {
-        "salida": ["Bergamota", "Notas marinas", "Mandarina verde"],
-        "corazon": ["Romero", "Lavanda", "Ciprés"],
-        "fondo": ["Pachulí", "Almizcle mineral"]
-      },
+      "acordes": ["Marino", "Aromático", "Cítrico", "Fresco especiado", "Fresco"],
+      "descripcion": "Agua de mar, roca mojada y bergamota. Es la versión oscura y más seria del Acqua di Gio clásico, sin perder la frescura.",
+      "cuandoUsarlo": "Calor, oficina y día. Aguanta el sol de Margarita sin volverse pesado.",
       "imagen": "/perfumes/acqua-di-gio-profondo.webp",
+      "medidas": [
+        { "ml": 5, "precio": 12, "disponible": true },
+        { "ml": 10, "precio": 22, "disponible": true }
+      ]
+    },
+    {
+      "slug": "y-le-parfum",
+      "casa": "Yves Saint Laurent",
+      "nombre": "Y Le Parfum",
+      "concentracion": "Le Parfum",
+      "acordes": ["Aromático", "Fresco especiado", "Fresco", "Afrutado", "Herbal"],
+      "descripcion": "Salvia y jengibre sobre una base de haba tonka. Limpio y afilado, con más cuerpo que la versión Eau de Parfum.",
+      "cuandoUsarlo": "Diario, todo el año. De los más fáciles de llevar del muestrario.",
+      "imagen": "/perfumes/ysl-y-edp.webp",
+      "medidas": [
+        { "ml": 5, "precio": 12, "disponible": true },
+        { "ml": 10, "precio": 22, "disponible": true }
+      ]
+    },
+    {
+      "slug": "armani-code",
+      "casa": "Giorgio Armani",
+      "nombre": "Armani Code",
+      "acordes": ["Cítrico", "Cuero", "Anís", "Especiado suave", "Florales"],
+      "descripcion": "Cítrico verde arriba, anís y cuero suave en el medio. Un clásico de noche que nunca se sintió fuera de lugar.",
+      "cuandoUsarlo": "Oficina, reuniones, cena. Discreto y elegante.",
+      "imagen": "/perfumes/armani-code-parfum.webp",
+      "medidas": [
+        { "ml": 5, "precio": 12, "disponible": true },
+        { "ml": 10, "precio": 22, "disponible": true }
+      ]
+    },
+    {
+      "slug": "eros-edp",
+      "casa": "Versace",
+      "nombre": "Eros",
+      "concentracion": "Eau de Parfum",
+      "acordes": ["Cítrico", "Aromático", "Verde", "Avainillado", "Amaderado"],
+      "descripcion": "Menta y limón de entrada, vainilla y madera abajo. Dulce, fuerte y con proyección alta.",
+      "cuandoUsarlo": "Noche, rumba, clima fresco. Basta con dos atomizaciones.",
+      "imagen": "/perfumes/versace-eros-edp.webp",
+      "medidas": [
+        { "ml": 5, "precio": 8, "disponible": true },
+        { "ml": 10, "precio": 15, "disponible": true }
+      ]
+    },
+    {
+      "slug": "dylan-blue",
+      "casa": "Versace",
+      "nombre": "Pour Homme Dylan Blue",
+      "acordes": ["Ámbar", "Cítrico", "Fresco especiado", "Almizclado", "Acuático"],
+      "descripcion": "Acuático con fondo ambarado. Fresco al abrir y cálido al rato, sin cambiar de personalidad.",
+      "cuandoUsarlo": "Día y noche, todo el año. Es el comodín del muestrario.",
+      "imagen": "/perfumes/versace-dylan-blue.webp",
+      "medidas": [
+        { "ml": 5, "precio": 8, "disponible": true },
+        { "ml": 10, "precio": 15, "disponible": true }
+      ]
+    },
+    {
+      "slug": "the-most-wanted-parfum",
+      "casa": "Azzaro",
+      "nombre": "The Most Wanted Parfum",
+      "concentracion": "Parfum",
+      "acordes": ["Avainillado", "Amaderado", "Fresco especiado", "Fresco", "Atalcado"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 12, "disponible": true },
+        { "ml": 10, "precio": 22, "disponible": true }
+      ]
+    },
+    {
+      "slug": "stronger-with-you",
+      "casa": "Giorgio Armani",
+      "nombre": "Stronger With You",
+      "acordes": ["Avainillado", "Dulce", "Balsámico", "Nueces", "Aromático"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 12, "disponible": true },
+        { "ml": 10, "precio": 22, "disponible": true }
+      ]
+    },
+    {
+      "slug": "ch-men",
+      "casa": "Carolina Herrera",
+      "nombre": "CH Men",
+      "acordes": ["Cuero", "Avainillado", "Dulce", "Amaderado", "Atalcado"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 12, "disponible": true },
+        { "ml": 10, "precio": 22, "disponible": true }
+      ]
+    },
+    {
+      "slug": "givenchy-pi",
+      "casa": "Givenchy",
+      "nombre": "Pi",
+      "acordes": ["Avainillado", "Ámbar", "Dulce", "Almendrado", "Aromático"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 12, "disponible": true },
+        { "ml": 10, "precio": 22, "disponible": true }
+      ]
+    },
+    {
+      "slug": "guilty-pour-homme",
+      "casa": "Gucci",
+      "nombre": "Guilty Pour Homme",
+      "acordes": ["Cítrico", "Lavanda", "Amaderado", "Aromático", "Floral blanco"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 10, "disponible": true },
+        { "ml": 10, "precio": 18, "disponible": true }
+      ]
+    },
+    {
+      "slug": "guilty-pour-homme-parfum",
+      "casa": "Gucci",
+      "nombre": "Guilty Pour Homme Parfum",
+      "concentracion": "Parfum",
+      "acordes": ["Amaderado", "Fresco especiado", "Aromático", "Cítrico", "Lavanda"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 0, "disponible": true },
+        { "ml": 10, "precio": 0, "disponible": true }
+      ]
+    },
+    {
+      "slug": "eros-flame",
+      "casa": "Versace",
+      "nombre": "Eros Flame",
+      "concentracion": "Eau de Parfum · Tester",
+      "acordes": ["Cítrico", "Fresco especiado", "Avainillado", "Aromático", "Amaderado"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 8, "disponible": true },
+        { "ml": 10, "precio": 15, "disponible": true }
+      ]
+    },
+    {
+      "slug": "amber-oud-gold",
+      "casa": "Al Haramain",
+      "nombre": "Amber Oud Gold Edition",
+      "acordes": ["Dulce", "Afrutado", "Ozónico", "Atalcado", "Avainillado"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 7, "disponible": true },
+        { "ml": 10, "precio": 13, "disponible": true }
+      ]
+    },
+    {
+      "slug": "khamrah",
+      "casa": "Lattafa",
+      "nombre": "Khamrah",
+      "acordes": ["Dulce", "Cálido especiado", "Avainillado", "Ámbar", "Canela"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 7, "disponible": true },
+        { "ml": 10, "precio": 11, "disponible": true }
+      ]
+    },
+    {
+      "slug": "asad-bourbon",
+      "casa": "Lattafa",
+      "nombre": "Asad Bourbon",
+      "acordes": ["Avainillado", "Cacao", "Dulce", "Lavanda", "Fresco especiado"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 7, "disponible": true },
+        { "ml": 10, "precio": 11, "disponible": true }
+      ]
+    },
+    {
+      "slug": "afnan-9pm",
+      "casa": "Afnan",
+      "nombre": "9 PM",
+      "acordes": ["Avainillado", "Ámbar", "Cálido especiado", "Afrutado", "Canela"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 7, "disponible": true },
+        { "ml": 10, "precio": 11, "disponible": true }
+      ]
+    },
+    {
+      "slug": "hawas-for-him",
+      "casa": "Rasasi",
+      "nombre": "Hawas for Him",
+      "acordes": ["Afrutado", "Cítrico", "Acuático", "Fresco", "Cálido especiado"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 7, "disponible": true },
+        { "ml": 10, "precio": 11, "disponible": true }
+      ]
+    },
+    {
+      "slug": "club-de-nuit-intense-man",
+      "casa": "Armaf",
+      "nombre": "Club de Nuit Intense Man",
+      "acordes": ["Cítrico", "Afrutado", "Cuero", "Ahumado", "Amaderado"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 7, "disponible": true },
+        { "ml": 10, "precio": 11, "disponible": true }
+      ]
+    },
+    {
+      "slug": "odyssey-aqua",
+      "casa": "Armaf",
+      "nombre": "Odyssey Aqua Edition",
+      "acordes": ["Aromático", "Cítrico", "Fresco especiado", "Verde", "Amaderado"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 7, "disponible": true },
+        { "ml": 10, "precio": 11, "disponible": true }
+      ]
+    },
+    {
+      "slug": "lagerfeld-classic",
+      "casa": "Karl Lagerfeld",
+      "nombre": "Lagerfeld Classic",
+      "acordes": ["Amaderado", "Atalcado", "Ámbar", "Aromático", "Avainillado"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 7, "disponible": true },
+        { "ml": 10, "precio": 11, "disponible": true }
+      ]
+    },
+    {
+      "slug": "dark-aoud",
+      "casa": "Maison Alhambra",
+      "nombre": "Dark Aoud",
+      "acordes": ["Cálido especiado", "Amaderado", "Aromático", "Fresco especiado", "Oud"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 7, "disponible": true },
+        { "ml": 10, "precio": 11, "disponible": true }
+      ]
+    },
+    {
+      "slug": "woody-oud",
+      "casa": "Maison Alhambra",
+      "nombre": "Woody Oud",
+      "acordes": ["Amaderado", "Oud", "Cálido especiado", "Ámbar", "Animálico"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 7, "disponible": true },
+        { "ml": 10, "precio": 11, "disponible": true }
+      ]
+    },
+    {
+      "slug": "opulence-leather",
+      "casa": "Maison Alhambra",
+      "nombre": "Opulence Leather",
+      "acordes": ["Cuero", "Animálico", "Cálido especiado", "Ámbar", "Terrosos"],
+      "imagen": null,
+      "medidas": [
+        { "ml": 5, "precio": 7, "disponible": true },
+        { "ml": 10, "precio": 11, "disponible": true }
+      ]
+    },
+    {
+      "slug": "amber-and-leather",
+      "casa": "Maison Alhambra",
+      "nombre": "Amber and Leather",
+      "acordes": ["Cuero", "Animálico", "Cálido especiado", "Ámbar", "Terrosos"],
+      "imagen": null,
       "medidas": [
         { "ml": 5, "precio": 0, "disponible": true },
         { "ml": 10, "precio": 0, "disponible": true }

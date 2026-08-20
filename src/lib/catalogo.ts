@@ -2,7 +2,7 @@ import datos from "../datos/fragancias.json" with { type: "json" };
 
 export type Medida = {
   ml: number;
-  /** 0 significa precio sin confirmar: la web lo muestra como pendiente. */
+  /** 0 significa precio sin definir: la web lo muestra como pendiente y no lo suma. */
   precio: number;
   disponible: boolean;
 };
@@ -11,27 +11,30 @@ export type Fragancia = {
   slug: string;
   casa: string;
   nombre: string;
-  concentracion: string;
-  familia: string;
-  genero: string;
-  descripcion: string;
-  cuandoUsarlo: string;
-  notas: { salida: string[]; corazon: string[]; fondo: string[] };
-  imagen: string;
+  /** Solo cuando el nombre no la dice ya (Parfum, Eau de Parfum, Tester). */
+  concentracion?: string;
+  /** Acordes principales tal como los listó el dueño en su catálogo. */
+  acordes: string[];
+  descripcion?: string;
+  cuandoUsarlo?: string;
+  /** null mientras no haya foto propia: la ficha muestra el vial dibujado. */
+  imagen: string | null;
   medidas: Medida[];
 };
 
-export const fragancias = datos.fragancias as Fragancia[];
+export const fragancias = datos.fragancias as unknown as Fragancia[];
 export const moneda = datos.moneda;
 
 export function buscarFragancia(slug: string): Fragancia | undefined {
   return fragancias.find((f) => f.slug === slug);
 }
 
-/** Mientras alguna medida siga en 0, la web avisa que los precios los confirma el vendedor. */
-export const hayPreciosPendientes = fragancias.some((f) =>
-  f.medidas.some((m) => m.precio === 0),
-);
+/** Una fragancia con alguna medida en 0 se pide igual: el precio lo cierra el chat. */
+export function tienePrecioPendiente(fragancia: Fragancia): boolean {
+  return fragancia.medidas.some((m) => m.precio === 0);
+}
+
+export const hayPreciosPendientes = fragancias.some(tienePrecioPendiente);
 
 export function formatearPrecio(precio: number): string {
   if (precio === 0) return "A confirmar";
@@ -41,4 +44,21 @@ export function formatearPrecio(precio: number): string {
 /** Cuántas atomizaciones rinde una medida, a ~0,1 ml por pulsación. */
 export function atomizaciones(ml: number): number {
   return Math.round((ml / 0.1) / 5) * 5;
+}
+
+/** Bajo la casilla, donde no cabe la lista entera de acordes. */
+export function resumenAcordes(fragancia: Fragancia): string {
+  return fragancia.acordes.slice(0, 3).join(" · ");
+}
+
+/** De "Acqua di Gio" + "Giorgio Armani" sale la dirección de su ficha, sin acentos ni signos. */
+export function armarSlug(nombre: string, casa: string): string {
+  return `${nombre} ${casa}`
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 60)
+    .replace(/-$/, "");
 }
