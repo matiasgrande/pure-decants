@@ -19,6 +19,11 @@
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
+    /* Red contra el arrastre lateral en teléfono: cualquier ornamento o fila
+       que se salga por un píxel deja de correr la página entera. Es `clip` y
+       no `hidden` a propósito — `hidden` convierte el html en contenedor de
+       scroll y le quita el pegado al encabezado. */
+    overflow-x: clip;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -93,6 +98,9 @@
 @utility sin-barra {
   scrollbar-width: none;
   -ms-overflow-style: none;
+  /* La fila de casas rueda sola: al llegar a su extremo el gesto se detiene
+     ahí en vez de seguir empujando el documento. */
+  overscroll-behavior-x: contain;
 
   &::-webkit-scrollbar {
     display: none;

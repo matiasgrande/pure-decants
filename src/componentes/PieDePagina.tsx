@@ -39,16 +39,15 @@ export function PieDePagina() {
       />
 
       <div className="relative mx-auto max-w-[1240px] px-6 py-14 lg:px-12 lg:py-16">
-        <p className="font-display text-[clamp(1.9rem,7vw,2.6rem)] leading-[1.05] text-crema">
+        <p className="text-center font-display text-[clamp(1.9rem,7vw,2.6rem)] leading-[1.05] text-crema">
           Grandes aromas,
           <br />
           <span className="text-oro">pequeñas dosis.</span>
         </p>
 
-        {/* Pegados a la frase y no en la otra punta del pie: los dos enlaces
-            son la continuación de "escríbenos", no una barra de servicio. El
-            margen negativo alinea el trazo con la G, no la caja de toque. */}
-        <nav className="mt-5 -ml-3 flex items-center">
+        {/* Debajo de la frase y no en la otra punta del pie: los dos enlaces
+            son la continuación de "escríbenos", no una barra de servicio. */}
+        <nav className="mt-5 flex items-center justify-center gap-2">
           {REDES.map((red) => (
             <a
               key={red.url}
@@ -67,7 +66,7 @@ export function PieDePagina() {
                 strokeLinejoin="round"
                 aria-hidden="true"
                 focusable="false"
-                className="h-6 w-6"
+                className="h-9 w-9"
               >
                 {red.trazo}
               </svg>
