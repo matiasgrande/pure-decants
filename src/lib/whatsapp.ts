@@ -3,7 +3,6 @@ import type { VialConFragancia } from "./bandeja.tsx";
 
 /** Número del negocio, tomado del enlace wa.link/yy6ya1 que publica en Instagram. */
 export const TELEFONO = "584248248160";
-export const TELEFONO_LEGIBLE = "+58 424 824 8160";
 export const INSTAGRAM = "https://www.instagram.com/puredecantsve/";
 
 export function armarMensaje(

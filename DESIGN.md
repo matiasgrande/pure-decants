@@ -138,9 +138,10 @@ una etiqueta. El grabado es el kicker del sistema, y por eso aparece contado: en
 ficha de fragancia y la casa de cada casilla, no cada párrafo.
 
 **Rótulo** es el mismo grabado a escala de encabezado de sección, con el tracking abierto un
-punto menos (0.26em) porque a ese tamaño 0.32em desarma la palabra. Lo llevan los cuatro
-encabezados que estructuran el sitio —"Cómo funciona", "El muestrario", "Tu bandeja" y los
-tres del pie— y nada más. Rótulo y grabado no se mezclan dentro de un mismo bloque.
+punto menos (0.26em) porque a ese tamaño 0.32em desarma la palabra. Lo llevan los tres
+encabezados que estructuran el sitio —"Cómo funciona", "El muestrario", "Tu bandeja"— y nada
+más. Rótulo y grabado no se mezclan dentro de un mismo bloque. El pie no lleva ninguno: es una
+firma, no un capítulo, y tres encabezados sobre tres columnas de una línea eran andamiaje.
 
 **Archivo** para todo lo demás: párrafos, controles, etiquetas de interfaz, cifras. Las
 medidas (5 ml, 10 ml) y los precios usan `font-variant-numeric: tabular-nums` para que las
@@ -198,6 +199,10 @@ opacidad entre 0.12 y 0.22, ancladas a esquinas y nunca detrás de texto de lect
   estado vacío dice qué hacer, no que está vacío. Cierra con la acción a WhatsApp.
 - **Acción a WhatsApp:** dorado sólido, la única de ese peso en toda la página. Su etiqueta
   nombra lo que hace — enviar el pedido —, no "comprar", porque el pago se acuerda después.
+- **Pie:** la frase de la marca, los dos enlaces de contacto como dibujo de trazo —el mismo
+  lienzo de 24 y el mismo grosor de 1.4 que los iconos de acorde, para que los logotipos
+  ajenos no se lean como pegatinas—, y debajo del filete la procedencia y el aviso de marcas.
+  Sin encabezados ni columnas: el catálogo está en la página y no necesita anunciarse ahí.
 - **Aviso de precio pendiente:** franja discreta en `alert` que explica que las cifras las
   confirma el vendedor por WhatsApp. Desaparece sola cuando el JSON trae precios.
 
