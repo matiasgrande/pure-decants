@@ -20,50 +20,55 @@ export function BarrasAcordes({ acordes }: { acordes: string[] }) {
     () => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-      gsap.from(".barra-relleno", {
+      const relleno = gsap.timeline({ paused: true });
+      relleno.from(".barra-relleno", {
         scaleX: 0,
         transformOrigin: "left center",
         duration: 0.9,
         ease: "power3.out",
         stagger: 0.08,
-        scrollTrigger: {
-          trigger: raiz.current,
-          start: "top 85%",
-          // Al salir de pantalla las barras vuelven a cero, y se rellenan de
-          // nuevo cada vez que el visitante regresa: entrando o subiendo.
-          toggleActions: "restart none restart reset",
-        },
+      });
+
+      ScrollTrigger.create({
+        trigger: raiz.current,
+        start: "top 85%",
+        // Al subir, las barras se vacían con la misma animación al revés en vez
+        // de saltar a cero: subiendo despacio el salto se veía. Y arrancan
+        // desde donde quedaron, así que cambiar de sentido a mitad de camino no
+        // reinicia nada.
+        onEnter: () => relleno.timeScale(1).play(),
+        // Se vacían más rápido de lo que se llenan: lo que entra se toma su
+        // tiempo, lo que se va no debe hacerse esperar.
+        onLeaveBack: () => relleno.timeScale(2.6).reverse(),
       });
     },
     { scope: raiz },
   );
 
   return (
-    <ul ref={raiz} className="mt-7 space-y-5">
+    <ul ref={raiz} className="mt-7 space-y-6">
       {acordes.map((acorde, i) => {
         const color = colorDe(acorde);
         return (
-          <li key={`${i}-${acorde}`}>
-            <div className="flex items-baseline gap-3">
-              <IconoAcorde
-                acorde={acorde}
-                className="size-5 shrink-0 translate-y-1"
-                // El color es la firma de la familia: repite el de su barra.
-                style={{ color }}
-              />
-              <span className="flex-1 text-crema">{acorde}</span>
-            </div>
-            <div
-              className="mt-2 h-1.5 w-full"
-              style={{ backgroundColor: "rgb(122 95 46 / 0.22)" }}
-            >
+          <li key={`${i}-${acorde}`} className="flex items-center gap-4">
+            {/* La ilustración manda a la izquierda y el nombre con su barra se
+                apoyan contra ella: a este tamaño el dibujo es la etiqueta, y
+                colgarlo de la línea de texto lo dejaba flotando. */}
+            <IconoAcorde acorde={acorde} px={48} className="shrink-0" />
+            <div className="min-w-0 flex-1">
+              <span className="text-crema">{acorde}</span>
               <div
-                className="barra-relleno h-full"
-                style={{
-                  width: `${intensidad(i, acordes.length)}%`,
-                  backgroundColor: color,
-                }}
-              />
+                className="mt-2 h-1.5 w-full"
+                style={{ backgroundColor: "rgb(122 95 46 / 0.22)" }}
+              >
+                <div
+                  className="barra-relleno h-full"
+                  style={{
+                    width: `${intensidad(i, acordes.length)}%`,
+                    backgroundColor: color,
+                  }}
+                />
+              </div>
             </div>
           </li>
         );

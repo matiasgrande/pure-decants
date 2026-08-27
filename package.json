@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "node --experimental-strip-types src/lib/whatsapp.test.ts && node --experimental-strip-types src/lib/catalogo.test.ts"
+    "test": "node --experimental-strip-types src/lib/whatsapp.test.ts && node --experimental-strip-types src/lib/catalogo.test.ts && node --experimental-strip-types src/lib/acordes.test.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

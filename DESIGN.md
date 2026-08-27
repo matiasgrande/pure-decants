@@ -123,9 +123,21 @@ El dorado deja de significar cuando cubre áreas.
 
 **La paleta de acordes es la excepción, y está acotada.** Cada familia olfativa tiene su color
 en `src/lib/acordes.ts` —cítrico amarillo, acuático azul, cuero marrón, y así— y aparece en
-dos lugares nada más: la barra del acorde en la ficha y su icono, del tamaño de una palabra,
-en la casilla. Todos van bajados de saturación para convivir con el negro y ninguno baja de
-3:1 contra el fondo. Fuera de esos dos lugares, el sitio sigue siendo negro, crema y dorado.
+un lugar nada más: la barra del acorde en la ficha. Todos van bajados de saturación para convivir con el negro y
+ninguno baja de 3:1 contra el fondo. Fuera de ahí, el sitio sigue siendo negro, crema y dorado.
+
+El icono ya no toma ese color: es una ilustración propia del negocio, line art dorado con un
+acento propio —azul en marino, violeta en lavanda, rosa en dulce—. Es dorado sobre negro, así
+que no rompe la proporción: sigue siendo la misma tinta de la marca.
+
+**La ilustración distingue el acorde; el color agrupa la familia.** Hay acordes con dibujo
+propio que comparten familia con otro —`animálico` con `cuero`, `balsámico` con `ámbar`,
+`ozónico` con `marino`, `verde` con `aromático`—: dos dibujos distintos sobre una misma barra
+del mismo color. Un segundo marrón al lado del primero no diría nada que el dibujo no diga
+mejor, y la regla de que la paleta está acotada es la que manda. Las veinte familias tienen su
+dibujo y seis acordes tienen además el suyo propio: veintiséis en total, y ningún acorde sin
+icono. `ILUSTRACION_FAMILIA` está tipada completa a propósito — una familia nueva no compila
+hasta tener su dibujo.
 
 ## Typography
 
@@ -193,15 +205,23 @@ opacidad entre 0.12 y 0.22, ancladas a esquinas y nunca detrás de texto de lect
 - **Casilla de fragancia:** foto del frasco a sangre, grabado con la casa, nombre en display,
   familia olfativa en `cream-dim`, selector de medida y acción de poner en bandeja. El precio
   pendiente se muestra como tal, en `alert`, nunca como cifra.
+- **Icono de acorde:** ilustración de `public/aromas`, 28px en la casilla y 48px en la barra
+  de la ficha, donde manda a la izquierda y el nombre con su barra se apoyan contra ella. Dos
+  archivos por dibujo y un `srcSet`: la casilla baja el de 64 y la ficha el de 144, que con
+  las veinte a la vista es la diferencia entre 62 KB y 245 KB. Salen de las ilustraciones del
+  dueño por `scripts/iconos-aromas.py`, que les recorta el fondo negro con la propia
+  luminancia y las normaliza al mismo peso óptico: el original encuadra cada una a su antojo.
+  El archivo lleva el nombre del dibujo, no el de la familia, porque hay familias con dos.
+  Decorativo, con `alt` vacío: el nombre del acorde va escrito al lado. No hay dibujo de
+  respaldo en código: un acorde que nadie previó cae en madera, y madera tiene el suyo.
 - **Selector de medida:** dos segmentos, 5 ml y 10 ml, uno activo en dorado sólido. Es un
   control de radio real, operable con teclado, no dos botones.
 - **Bandeja de pedido:** lista de viales colocados con su medida y cantidad, más el conteo. Su
   estado vacío dice qué hacer, no que está vacío. Cierra con la acción a WhatsApp.
 - **Acción a WhatsApp:** dorado sólido, la única de ese peso en toda la página. Su etiqueta
   nombra lo que hace — enviar el pedido —, no "comprar", porque el pago se acuerda después.
-- **Pie:** la frase de la marca, los dos enlaces de contacto como dibujo de trazo —el mismo
-  lienzo de 24 y el mismo grosor de 1.4 que los iconos de acorde, para que los logotipos
-  ajenos no se lean como pegatinas—, y debajo del filete la procedencia y el aviso de marcas.
+- **Pie:** la frase de la marca, los dos enlaces de contacto como dibujo de trazo —lienzo de
+  24 y grosor de 1.4, para que los logotipos ajenos no se lean como pegatinas—, y debajo del filete la procedencia y el aviso de marcas.
   Sin encabezados ni columnas: el catálogo está en la página y no necesita anunciarse ahí.
 - **Aviso de precio pendiente:** franja discreta en `alert` que explica que las cifras las
   confirma el vendedor por WhatsApp. Desaparece sola cuando el JSON trae precios.
@@ -210,11 +230,17 @@ opacidad entre 0.12 y 0.22, ancladas a esquinas y nunca detrás de texto de lect
 
 - Escribe en la lengua del negocio: bandeja, vial, medida, fragancia, casa. Nada de "producto",
   "item" ni "SKU".
-- Una sola pieza de movimiento autorizada: el vial que viaja a la bandeja al agregarlo, con la
-  bandeja acusando recibo. Todo lo demás entra ya visible.
+- Dos piezas de movimiento autorizadas y ninguna más: el vial que viaja a la bandeja al
+  agregarlo, con la bandeja acusando recibo, y las barras de acorde llenándose al entrar en
+  pantalla. Todo lo demás entra ya visible.
+- Lo que se anima al entrar se anima al salir. Las barras se vacían con la misma animación al
+  revés cuando el visitante sube y las deja atrás, y arrancan desde donde quedaron si cambia de
+  sentido a mitad de camino. Un estado que salta a cero se ve, aunque sea de reojo. El regreso
+  corre a 2,6× la ida: lo que entra se toma su tiempo, lo que se va no se hace esperar.
 - No inventes precio, stock, reseña ni acuerdo con una marca. Lo que no confirmó el dueño se
   muestra pendiente.
 - No agregues tarjetas de icono más título más texto, ni numeración de secciones, ni contadores
   de estadísticas. La estructura es la bandeja.
 - No uses el dorado como fondo de áreas grandes ni como texto sobre crema.
-- `prefers-reduced-motion: reduce` apaga el viaje del vial; el estado final es idéntico.
+- `prefers-reduced-motion: reduce` apaga el viaje del vial y el llenado de las barras; el estado
+  final es idéntico y las barras nacen con su ancho.

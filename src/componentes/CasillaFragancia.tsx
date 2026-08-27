@@ -5,7 +5,6 @@ import { useRef, useState } from "react";
 import { FotoFragancia } from "@/componentes/FotoFragancia";
 import { useBandeja } from "@/lib/bandeja";
 import { atomizaciones, formatearPrecio, type Fragancia } from "@/lib/catalogo";
-import { colorDe } from "@/lib/acordes";
 import { IconoAcorde } from "@/componentes/IconoAcorde";
 
 export function CasillaFragancia({
@@ -62,17 +61,13 @@ export function CasillaFragancia({
           {fragancia.concentracion && (
             <p className="grabado mt-2 text-oro">{fragancia.concentracion}</p>
           )}
-          <ul className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5">
+          <ul className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
             {fragancia.acordes.slice(0, 3).map((acorde) => (
               <li
                 key={acorde}
                 className="flex items-center gap-2 text-sm text-crema-tenue"
               >
-                <IconoAcorde
-                  acorde={acorde}
-                  className="size-[1.15rem] shrink-0"
-                  style={{ color: colorDe(acorde) }}
-                />
+                <IconoAcorde acorde={acorde} px={28} className="shrink-0" />
                 {acorde}
               </li>
             ))}

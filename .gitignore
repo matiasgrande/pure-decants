@@ -46,3 +46,9 @@ next-env.d.ts
 .impeccable/
 AGENTS.md
 CLAUDE.md
+
+# ilustraciones de aroma en su tamaño original
+# Fuente de public/aromas/*.webp, que sí se versionan. Son 13 MB de JPG a
+# 1024 px y no los sirve nadie: se procesan con scripts/iconos-aromas.py.
+# Guardarlos fuera del repositorio; sin ellos no se pueden regenerar los iconos.
+/puredecants-iconos-aromas/
